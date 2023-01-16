@@ -1,30 +1,30 @@
 package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
-import ir.maktab.data.model.entity.Services;
+import ir.maktab.data.model.entity.SubJob;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class ServicesRepository implements InRepository<Services, Long> {
+public class SubJobRepository implements InRepository<SubJob, Long> {
 
-    private static ServicesRepository instance = new ServicesRepository();
+    private static SubJobRepository instance = new SubJobRepository();
 
-    private ServicesRepository() {
+    private SubJobRepository() {
     }
 
-    public static ServicesRepository getInstance() {
+    public static SubJobRepository getInstance() {
         return instance;
     }
 
     @Override
-    public void save(Services services) {
+    public void save(SubJob subJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
             entityManager.getTransaction();
-            entityManager.persist(services);
+            entityManager.persist(subJob);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (Exception e) {
@@ -33,43 +33,43 @@ public class ServicesRepository implements InRepository<Services, Long> {
     }
 
     @Override
-    public Optional<Services> getById(Long aLong) {
+    public Optional<SubJob> getById(Long aLong) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        Services services;
+        SubJob subJob;
         try {
             entityManager.getTransaction();
-            services = entityManager.find(Services.class, aLong);
+            subJob = entityManager.find(SubJob.class, aLong);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (NoResultException ex) {
-            services = null;
+            subJob = null;
         }
-        return Optional.ofNullable(services);
+        return Optional.ofNullable(subJob);
     }
 
     @Override
-    public List<Services> getAll() {
+    public List<SubJob> getAll() {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        List<Services> servicesList = entityManager.createQuery("select s from  Services s").getResultList();
+        List<SubJob> servicesList = entityManager.createQuery("select s from  SubJob s").getResultList();
         entityManager.close();
         return servicesList;
     }
 
     @Override
-    public void update(Services services) {
+    public void update(SubJob subJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        entityManager.merge(services);
+        entityManager.merge(subJob);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public void delete(Services services) {
+    public void delete(SubJob subJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        Services servicesDeleted=entityManager.find(Services.class,services.getId());
+        SubJob servicesDeleted=entityManager.find(SubJob.class,subJob.getId());
         entityManager.remove(servicesDeleted);
         entityManager.getTransaction().commit();
         entityManager.close();

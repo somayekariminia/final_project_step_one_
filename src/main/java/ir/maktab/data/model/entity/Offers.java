@@ -1,30 +1,33 @@
 package ir.maktab.data.model.entity;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.Date;
-import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@Builder
 public class Offers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
 
     private BigDecimal offerPriceByExpert;
-    private Date submitAnOfferDate;
-    private int  DurationOfWork;
 
-    @ManyToOne
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date submitAnOfferDate;
+
+    Duration durationWork;
+
+    @OneToOne
     private Expert expert;
 
-    @ManyToMany
-    List<OrderRegistration> orderRegistrationList=new ArrayList<>();
 }

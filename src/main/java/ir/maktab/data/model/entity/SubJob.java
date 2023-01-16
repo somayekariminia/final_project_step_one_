@@ -1,6 +1,8 @@
 package ir.maktab.data.model.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
@@ -13,10 +15,9 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class Credit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private BigDecimal balance;
+public class SubJob extends BasicJob {
+
+    private String subJobName;
+    private BigDecimal price;
+    private String description;
 }

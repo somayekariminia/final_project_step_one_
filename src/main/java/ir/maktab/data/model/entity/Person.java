@@ -1,17 +1,19 @@
 package ir.maktab.data.model.entity;
 
+import ir.maktab.data.model.entity.Credit;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@MappedSuperclass
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,7 @@ public class Person {
     private String password;
 
     @Temporal(value=TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date RegistrationDate;
 
     @OneToOne

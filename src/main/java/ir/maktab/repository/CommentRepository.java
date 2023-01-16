@@ -1,15 +1,14 @@
 package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
-import ir.maktab.data.model.entity.Comments;
-import ir.maktab.data.model.entity.Offers;
+import ir.maktab.data.model.entity.Review;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class CommentRepository implements InRepository<Comments,Long> {
+public class CommentRepository implements InRepository<Review,Long> {
 
     private static CommentRepository instance = new CommentRepository();
 
@@ -21,11 +20,11 @@ public class CommentRepository implements InRepository<Comments,Long> {
     }
 
     @Override
-    public void save(Comments comments) {
+    public void save(Review review) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
             entityManager.getTransaction();
-            entityManager.persist(comments);
+            entityManager.persist(review);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (Exception e) {
@@ -34,44 +33,44 @@ public class CommentRepository implements InRepository<Comments,Long> {
     }
 
     @Override
-    public Optional<Comments> getById(Long aLong) {
+    public Optional<Review> getById(Long aLong) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        Comments comments;
+        Review review;
         try {
             entityManager.getTransaction();
-            comments = entityManager.find(Comments.class, aLong);
+            review = entityManager.find(Review.class, aLong);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (NoResultException ex) {
-            comments = null;
+            review = null;
         }
-        return Optional.ofNullable(comments);
+        return Optional.ofNullable(review);
     }
 
     @Override
-    public List<Comments> getAll() {
+    public List<Review> getAll() {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        List<Comments> comments = entityManager.createQuery("select c from Comments  c").getResultList();
+        List<Review> comments = entityManager.createQuery("select c from Review  c").getResultList();
         entityManager.close();
         return comments;
     }
 
     @Override
-    public void update(Comments comments) {
+    public void update(Review review) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        entityManager.merge(comments);
+        entityManager.merge(review);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public void delete(Comments comments) {
+    public void delete(Review review) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        Comments commentsDelete=entityManager.find(Comments.class,comments.getId());
-        entityManager.remove(commentsDelete);
+        Review reviewDelete =entityManager.find(Review.class, review.getId());
+        entityManager.remove(reviewDelete);
         entityManager.close();
     }
 }

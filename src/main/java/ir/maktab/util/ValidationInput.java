@@ -17,6 +17,7 @@ public class ValidationInput {
             throw new ValidationException("Your Username Is Invalid");
     }
 
+
     public String validateEmail(String email) {
         if (email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.]+@[a-zA-Z0-9.]+$"))
             return email;
@@ -24,12 +25,14 @@ public class ValidationInput {
             throw new ValidationException("Your email Is Invalid");
     }
 
+
     public String validateName(String name) {
         if (name.matches("[a-zA-Z]+"))
             return name;
         else
             throw new ValidationException("your name is invalid");
     }
+
 
 
     public static void getSizeAimage() throws IOException {

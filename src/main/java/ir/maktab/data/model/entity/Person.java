@@ -16,11 +16,18 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
+
+    @Temporal(value=TemporalType.TIMESTAMP)
     private Date RegistrationDate;
+
     @OneToOne
     private Credit credit;
 }

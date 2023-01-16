@@ -17,11 +17,14 @@ public class Offers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
+
     private BigDecimal offerPriceByExpert;
     private Date submitAnOfferDate;
     private int  DurationOfWork;
-    @OneToOne
+
+    @ManyToOne
     private Expert expert;
-    @OneToMany
+
+    @ManyToMany
     List<OrderRegistration> orderRegistrationList=new ArrayList<>();
 }

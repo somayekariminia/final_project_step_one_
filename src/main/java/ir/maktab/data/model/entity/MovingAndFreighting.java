@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("MovingAndFreighting")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 public class MovingAndFreighting  extends Services{

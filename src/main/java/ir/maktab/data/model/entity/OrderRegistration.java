@@ -17,11 +17,13 @@ public class OrderRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private BigDecimal offerPrice;
     private String aboutWork;
     private Date doWorkDate;
     private String address;
     private orderStatus orderStatus;
+
     @OneToOne
     private Services services;
 }

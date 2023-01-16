@@ -4,7 +4,9 @@ import ir.maktab.data.model.enums.SpecialtyStatus;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import java.util.List;
 @Entity
 @Data
@@ -14,4 +16,6 @@ import java.util.List;
 public class Expert extends Person{
     private SpecialtyStatus specialtyStatus;
     private int rating;
+    @Lob
+    private byte[] expertImage;
 }

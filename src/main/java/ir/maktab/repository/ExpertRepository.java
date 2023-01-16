@@ -1,6 +1,7 @@
 package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
+import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.Person;
 
 import javax.persistence.EntityManager;
@@ -8,17 +9,17 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class PersonInRepository implements InRepository<Person, Long> {
-    private static PersonInRepository instance = new PersonInRepository();
+public class ExpertRepository implements InRepository<Expert, Long> {
+    private static ExpertRepository instance = new ExpertRepository();
 
-    private PersonInRepository() {
+    private ExpertRepository() {
     }
 
-    public static PersonInRepository getInstance() {
+    public static ExpertRepository getInstance() {
         return instance;
     }
 
-    public void save(Person person) {
+    public void save(Expert person) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
             entityManager.getTransaction();
@@ -31,12 +32,12 @@ public class PersonInRepository implements InRepository<Person, Long> {
     }
 
     @Override
-    public Optional<Person> getById(Long aLong) {
+    public Optional<Expert> getById(Long aLong) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        Person person;
+        Expert person;
         try {
             entityManager.getTransaction();
-            person = entityManager.find(Person.class, aLong);
+            person = entityManager.find(Expert.class, aLong);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (NoResultException ex) {
@@ -46,16 +47,16 @@ public class PersonInRepository implements InRepository<Person, Long> {
     }
 
     @Override
-    public List<Person> getAll() {
+    public List<Expert> getAll() {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        List<Person> personList = entityManager.createQuery("select p from  Person p").getResultList();
+        List<Expert> personList = entityManager.createQuery("select e from  Expert e").getResultList();
         entityManager.close();
         return personList;
     }
 
     @Override
-    public void update(Person person) {
+    public void update(Expert person) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
         entityManager.merge(person);
@@ -64,13 +65,26 @@ public class PersonInRepository implements InRepository<Person, Long> {
     }
 
     @Override
-    public void delete(Person person) {
+    public void delete(Expert person) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        Person personDeleted=entityManager.find(Person.class,person.getId());
+        Person personDeleted = entityManager.find(Person.class, person.getId());
         entityManager.remove(personDeleted);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
+    public Optional<Expert> findByUserName(String userName) {
+        EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
+        Expert expert;
+        try {
+            entityManager.getTransaction();
+            expert = (Expert) entityManager.createQuery("select e from Expert e where e.email=:email").
+                    setParameter("email", userName).getSingleResult();
+            entityManager.close();
+        } catch (NoResultException ex) {
+            expert = null;
+        }
+        return Optional.ofNullable(expert);
+    }
 }

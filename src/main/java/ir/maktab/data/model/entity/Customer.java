@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Users extends Person{
+public class Customer extends Person{
     @OneToMany
     private List<OrderRegistration> orderRegistrationList=new ArrayList<>();
 }

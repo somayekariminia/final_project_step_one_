@@ -2,6 +2,7 @@ package ir.maktab.service;
 
 import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.SubJob;
+import ir.maktab.data.model.enums.SpecialtyStatus;
 
 public class AdminService {
     private final PersonService<Expert> expertService = new ExpertServiceImpl();
@@ -19,5 +20,11 @@ public class AdminService {
         expertService.update(expert);
     }
 
+    public void isConfirmExpertByAdmin(Expert expert){
+        Expert expertDb=expertService.findByUserName(expert.getEmail());
+        if(expertDb.getSpecialtyStatus().equals(SpecialtyStatus.NewState));
+        expertDb.setSpecialtyStatus(SpecialtyStatus.Confirmed);
+        expertService.update(expertDb);
+    }
 
 }

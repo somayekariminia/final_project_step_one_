@@ -6,9 +6,14 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class></class>
-        <class></class>
-        <class></class>
+        <class>ir.maktab.data.model.entity.SubJob</class>
+        <class>ir.maktab.data.model.entity.BasicJob</class>
+        <class>ir.maktab.data.model.entity.Expert</class>
+        <class>ir.maktab.data.model.entity.Customer</class>
+        <class>ir.maktab.data.model.entity.OrderRegistration</class>
+        <class>ir.maktab.data.model.entity.Offers</class>
+        <class>ir.maktab.data.model.entity.Credit</class>
+        <class>ir.maktab.data.model.entity.Review</class>
 
 
         <properties>

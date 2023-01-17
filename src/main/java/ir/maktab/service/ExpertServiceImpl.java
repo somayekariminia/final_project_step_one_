@@ -1,6 +1,7 @@
 package ir.maktab.service;
 
 import ir.maktab.data.model.entity.Expert;
+import ir.maktab.data.model.entity.SubJob;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.ExpertRepository;
@@ -23,7 +24,8 @@ public class ExpertServiceImpl implements PersonService<Expert> {
             throw new ValidationException("Your password is incorrect");
     }
 
-    public void changePassword(Expert expert, String newPassword) {
+    public void changePassword(String userName, String passwordOld, String newPassword) {
+        Expert expert = login(userName, passwordOld);
         expert.setPassword(newPassword);
         expertRepository.update(expert);
     }
@@ -32,4 +34,5 @@ public class ExpertServiceImpl implements PersonService<Expert> {
         if (expertImage.length / 1024 <= 300)
             throw new ValidationException("size image is bigger of 300 kb");
     }
+
 }

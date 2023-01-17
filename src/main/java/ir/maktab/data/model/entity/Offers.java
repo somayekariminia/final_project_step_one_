@@ -19,14 +19,10 @@ public class Offers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
-
+    Duration durationWork;
     private BigDecimal offerPriceByExpert;
-
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date submitAnOfferDate;
-
-    Duration durationWork;
-
     @OneToOne
     private Expert expert;
 

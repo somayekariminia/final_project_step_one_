@@ -2,7 +2,6 @@ package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
 import ir.maktab.data.model.entity.Offers;
-import ir.maktab.data.model.entity.OrderRegistration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -69,7 +68,7 @@ public class OfferRepository implements InRepository<Offers, Long> {
     public void delete(Offers offers) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        Offers offerDelete=entityManager.find(Offers.class,offers.getId());
+        Offers offerDelete = entityManager.find(Offers.class, offers.getId());
         entityManager.remove(offerDelete);
         entityManager.close();
     }

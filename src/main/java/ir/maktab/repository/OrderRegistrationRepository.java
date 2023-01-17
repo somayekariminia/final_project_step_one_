@@ -8,7 +8,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderRegistrationRepository implements InRepository<OrderRegistration,Long> {
+public class OrderRegistrationRepository implements InRepository<OrderRegistration, Long> {
     private static OrderRegistrationRepository instance = new OrderRegistrationRepository();
 
     private OrderRegistrationRepository() {
@@ -17,6 +17,7 @@ public class OrderRegistrationRepository implements InRepository<OrderRegistrati
     public static OrderRegistrationRepository getInstance() {
         return instance;
     }
+
     @Override
     public void save(OrderRegistration orderRegistration) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
@@ -67,7 +68,7 @@ public class OrderRegistrationRepository implements InRepository<OrderRegistrati
     public void delete(OrderRegistration orderRegistration) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        OrderRegistration orderRegistration1=entityManager.find(OrderRegistration.class,orderRegistration.getId());
+        OrderRegistration orderRegistration1 = entityManager.find(OrderRegistration.class, orderRegistration.getId());
         entityManager.remove(orderRegistration1);
         entityManager.getTransaction().commit();
         entityManager.close();

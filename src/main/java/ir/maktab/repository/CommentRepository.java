@@ -8,7 +8,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class CommentRepository implements InRepository<Review,Long> {
+public class CommentRepository implements InRepository<Review, Long> {
 
     private static CommentRepository instance = new CommentRepository();
 
@@ -69,7 +69,7 @@ public class CommentRepository implements InRepository<Review,Long> {
     public void delete(Review review) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction();
-        Review reviewDelete =entityManager.find(Review.class, review.getId());
+        Review reviewDelete = entityManager.find(Review.class, review.getId());
         entityManager.remove(reviewDelete);
         entityManager.close();
     }

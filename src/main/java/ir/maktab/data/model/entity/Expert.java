@@ -13,16 +13,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Expert extends Person{
+public class Expert extends Person {
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    List<SubJob> servicesList = new ArrayList<>();
 
+    @ToString.Exclude
+    @OneToMany
+    List<Review> listComment = new ArrayList<>();
+
+    @Enumerated(value = EnumType.STRING)
     private SpecialtyStatus specialtyStatus;
 
     @Lob
     private byte[] expertImage;
-    
-    @ManyToMany
-    List<SubJob> servicesList=new ArrayList<>();
-
-    @OneToMany
-    List<Review>listComment=new ArrayList<>();
 }

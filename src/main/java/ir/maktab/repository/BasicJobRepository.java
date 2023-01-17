@@ -47,16 +47,13 @@ public class BasicJobRepository {
         return Optional.ofNullable(subJob);
     }
 
-
-    public List<SubJob> getAll() {
-        EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        entityManager.getTransaction().begin();
-        List<SubJob> servicesList = entityManager.createQuery("select s from  SubJob s").getResultList();
-        entityManager.close();
-        return servicesList;
-    }
-
-
+public List<BasicJob> getAllBas(){
+    EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
+    entityManager.getTransaction().begin();
+    List<BasicJob> servicesList = entityManager.createQuery("select b from  BasicJob b").getResultList();
+    entityManager.close();
+    return servicesList;
+}
     public void update(BasicJob basicJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();

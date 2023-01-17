@@ -8,7 +8,16 @@ public class AdminService {
     private final BasicJobService basicJobService = new BasicJobsService();
 
     public void addExpertToSubJob(Expert expert, SubJob subJob) {
-       SubJob subJobDb=basicJobService.
+        Expert expertDb = expertService.findByUserName(expert.getEmail());
+        expertDb.getServicesList().add(subJob);
+        expertService.update(expert);
     }
+
+    public void deleteExpertOfSubJob(Expert expert,SubJob subJob){
+        Expert expertDb = expertService.findByUserName(expert.getEmail());
+        expertDb.getServicesList().remove(subJob);
+        expertService.update(expert);
+    }
+
 
 }

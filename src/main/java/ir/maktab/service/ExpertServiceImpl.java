@@ -34,5 +34,12 @@ public class ExpertServiceImpl implements PersonService<Expert> {
         if (expertImage.length / 1024 <= 300)
             throw new ValidationException("size image is bigger of 300 kb");
     }
+    public Expert findByUserName(String userName){
+        return expertRepository.findByUserName(userName).orElseThrow(() -> new NotFoundException("Person not found with this userName"));
+    }
+
+    public void update(Expert expert){
+        expertRepository.update(expert);
+    }
 
 }

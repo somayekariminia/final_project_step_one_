@@ -48,7 +48,8 @@ public class BasicJobsService implements BasicJobService {
                 throw new ValidationException("this subService Already saved");
     }
 
-    public SubJob findByName(String name){
-        return subJobRepository.getByName(name).orElseThrow(()->new NotFoundException("SubJob is Null!!!"));
+    @Override
+    public SubJob findByName(String name) {
+        return subJobRepository.getByName(name).orElseThrow(() -> new NotFoundException("SubJob is Null!!!"));
     }
 }

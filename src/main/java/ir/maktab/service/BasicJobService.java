@@ -12,5 +12,6 @@ public interface BasicJobService {
     void updateServices(SubJob services);
 
     void deleteServices(SubJob services);
+    SubJob findByName(String name);
 
 }

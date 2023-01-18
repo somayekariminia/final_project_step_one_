@@ -13,10 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@ToString(callSuper = true)
 public class Expert extends Person {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     List<SubJob> servicesList = new ArrayList<>();
 
     @ToString.Exclude

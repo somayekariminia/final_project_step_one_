@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,8 +14,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @SuperBuilder
 public class SubJob extends BasicJob {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String subJobName;
     private BigDecimal price;
     private String description;
+    @ManyToOne
+    BasicJob basicJob;
 }

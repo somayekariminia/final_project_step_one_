@@ -51,7 +51,7 @@ public class PersonRepository implements InRepository<Person,Long>{
     @Override
     public void update(Person person) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        entityManager.getTransaction();
+        entityManager.getTransaction().begin();
         entityManager.merge(person);
         entityManager.getTransaction().commit();
         entityManager.close();

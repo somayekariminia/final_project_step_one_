@@ -8,7 +8,7 @@ import java.util.List;
 public interface PersonService {
     void save(Person t);
 
-    Expert findByUserName(String userName);
+    Person findByUserName(String userName);
 
     public void update(Person person);
     List<Person> findAllExpertsIsNotConfirm();

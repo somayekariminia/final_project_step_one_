@@ -1,9 +1,6 @@
 import ir.maktab.data.model.entity.*;
 import ir.maktab.data.model.enums.SpecialtyStatus;
-import ir.maktab.service.BasicJobService;
-import ir.maktab.service.BasicJobsService;
-import ir.maktab.service.ExpertServiceImpl;
-import ir.maktab.service.PersonService;
+import ir.maktab.service.*;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
@@ -18,7 +15,7 @@ public class TestApp {
     @Test
     public void testSaveServices() {
 
-        BasicJobService basicJobService = new BasicJobsService();
+        BasicJobService basicJobService = BasicJobsService.getInstance();
         BasicJob basicJob = BasicJob.builder().nameBase("home").build();
         SubJob subJob = SubJob.builder().subJobName("soft").nameBase("home").price(new BigDecimal(100000)).description("wash").build();
         basicJobService.save(basicJob);
@@ -28,7 +25,7 @@ public class TestApp {
         System.out.println("/////////////////////////////////");
         System.out.println(basicJobService.findAllBasicJobs());
         System.out.println("////////////////////////////////////////");
-        System.out.println(basicJobService.findAllSubJobs("home"));
+        System.out.println(basicJobService.findAllSubJobsABasicJob("home"));
     }
 
     @Test
@@ -43,11 +40,23 @@ public class TestApp {
         byte[] image = bos.toByteArray();
         Expert expert = Expert.builder().expertImage(image).firstName("ali").
                 lastName("akbari").email("ali@akbari.com").password("123456").specialtyStatus(SpecialtyStatus.NewState).build();
-        PersonService personService = new ExpertServiceImpl();
+        PersonServiceImPl personService = new ExpertServiceImpl();
         personService.save(expert);
         personService.save(customer);
       List<Person> all = personService.findAllExpertsIsNotConfirm();
-      all.forEach(System.out::println);
+        all.forEach(System.out::println);
 
+        all.forEach(Person::getEmail);
+    }
+
+    @Test
+    public void testAddAndDelete(){
+        ExpertServiceImpl expertService=new ExpertServiceImpl();
+        AdminService adminService=new AdminService();
+        BasicJobService basicJobService=BasicJobsService.getInstance();
+        Person expert=expertService.findByUserName("ali@akbari.com");
+        SubJob subJob=basicJobService.findByName("soft");
+        adminService.addExpertToSubJob((Expert)expert,subJob);
+        adminService.deleteExpertOfSubJob((Expert) expert,subJob);
     }
 }

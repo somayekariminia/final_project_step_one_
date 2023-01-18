@@ -11,8 +11,7 @@ public interface BasicJobService {
     void updateServices(BasicJob services);
 
     void deleteServices(BasicJob services);
-
     BasicJob findByName(String name);
     List<SubJob> findAllSubJobsABasicJob(String nameBasicJob);
-    public List<BasicJob> findAllBasicJobs();
+    List<BasicJob> findAllBasicJobs();
 }

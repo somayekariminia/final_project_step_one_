@@ -1,6 +1,5 @@
 package ir.maktab.service;
 
-import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.Person;
 
 import java.io.File;
@@ -12,6 +11,13 @@ public interface PersonService {
 
     Person findByUserName(String userName);
 
-    public void update(Person person);
+    Person login(String userName, String password);
+
+    void changePassword(String userName, String passwordOld, String newPassword);
+
+   List<Person> findAllPerson();
+
+    void update(Person person);
+
     List<Person> findAllExpertsIsNotConfirm();
 }

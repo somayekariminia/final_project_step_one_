@@ -10,10 +10,11 @@ import ir.maktab.exception.RepeatException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.AdminRepository;
 
-public class AdminServiceImpl {
+public class AdminServiceImpl implements AdminService {
     private final PersonService personServiceImPl = new PersonServiceImPl();
     private final AdminRepository adminRepository = new AdminRepository();
 
+    @Override
     public void addExpertToSubJob(Expert expert, SubJob subJob) {
         Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
         if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState))
@@ -24,6 +25,7 @@ public class AdminServiceImpl {
         personServiceImPl.update(expertDb);
     }
 
+    @Override
     public Admin login(String userName, String password) {
         Admin admin = adminRepository.findByUserName(userName).orElseThrow(() -> new NotFoundException("Admin not found with this userName"));
         if (admin.getPassword().equals(password))
@@ -32,6 +34,7 @@ public class AdminServiceImpl {
             throw new ValidationException("Your password is incorrect");
     }
 
+    @Override
     public void deleteExpertOfSubJob(Expert expert, SubJob subJob) {
         Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
         if (((Expert) expertDb).getServicesList().isEmpty())
@@ -40,10 +43,11 @@ public class AdminServiceImpl {
         personServiceImPl.update(expertDb);
     }
 
+    @Override
     public void isConfirmExpertByAdmin(Expert expert) {
         Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
-        if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState)) ;
-        ((Expert) expertDb).setSpecialtyStatus(SpecialtyStatus.Confirmed);
+        if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState))
+            ((Expert) expertDb).setSpecialtyStatus(SpecialtyStatus.Confirmed);
         personServiceImPl.update(expertDb);
     }
 

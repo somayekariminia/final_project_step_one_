@@ -13,8 +13,8 @@ import java.util.Objects;
 
 public class BasicJobsService implements BasicJobService {
     private final BasicJobRepository basicJobRepository = BasicJobRepository.getInstance();
-    private static BasicJobsService instance = new BasicJobsService();
-    private static SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
+    private static final BasicJobsService instance = new BasicJobsService();
+    private static final SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
 
     private BasicJobsService() {
 
@@ -45,8 +45,7 @@ public class BasicJobsService implements BasicJobService {
 
     @Override
     public List<BasicJob> findAllBasicJobs() {
-        List<BasicJob> listBasicJob = basicJobRepository.getAll();
-        return listBasicJob;
+       return basicJobRepository.getAll();
     }
 
 
@@ -61,7 +60,8 @@ public class BasicJobsService implements BasicJobService {
     public void deleteServices(BasicJob basicJob) {
         if (Objects.isNull(basicJob))
             throw new NullableException("basic is null");
-        subJobService.findAll().stream().filter(subJob -> subJob.getBasicJob().getNameBase().equals(basicJob.getNameBase())).forEach(subJob -> subJobService.deleteSubJob(subJob));
+        subJobService.findAll().stream().filter(subJob -> subJob.getBasicJob().getNameBase().equals(basicJob.getNameBase())).
+                forEach(subJobService::deleteSubJob);
         basicJobRepository.delete(basicJob);
     }
 

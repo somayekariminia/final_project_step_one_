@@ -11,10 +11,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-public class OrderRegistrationServiceImpl {
-    BasicJobService basicJobService = BasicJobsService.getInstance();
+public class OrderRegistrationServiceImpl implements OrderRegistrationService{
     OrderRegistrationRepository orderRegistrationRepository = OrderRegistrationRepository.getInstance();
-
+@Override
     public void saveOrder(OrderRegistration orderRegistration) {
         checkOrderRepeat(orderRegistration);
         LocalDate today = LocalDate.now();
@@ -26,7 +25,7 @@ public class OrderRegistrationServiceImpl {
         orderRegistration.setOrderStatus(OrderStatus.WaitingForTheExperts);
         orderRegistrationRepository.save(orderRegistration);
     }
-
+@Override
     public List<OrderRegistration> findAll(){
        return orderRegistrationRepository.getAll();
     }

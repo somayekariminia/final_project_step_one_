@@ -17,15 +17,11 @@ import java.util.stream.Collectors;
 public class PersonServiceImPl implements PersonService {
     private final PersonRepository personRepository = new PersonRepository();
 
-    public void save(Person person, File file) {
+    public void save(Person person, File file) throws IOException {
         validateInfoPerson(person);
         if (person instanceof Expert) {
-            try {
-                ((Expert) person).setExpertImage(ValidationInput.validateImage(file));
-                ((Expert) person).setSpecialtyStatus(SpecialtyStatus.NewState);
-            } catch (IOException | ValidationException e) {
-                System.err.println(e.getMessage());
-            }
+            ((Expert) person).setExpertImage(ValidationInput.validateImage(file));
+            ((Expert) person).setSpecialtyStatus(SpecialtyStatus.NewState);
         }
         personRepository.save(person);
     }

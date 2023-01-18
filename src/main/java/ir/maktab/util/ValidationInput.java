@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class ValidationInput {
-
-
     public static String validateUserName(String userName) {
         if (userName.matches("(?=.{8}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"))
             return userName;

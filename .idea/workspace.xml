@@ -8,17 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/42ce7f58-9b3b-442b-bad3-3dd63ae00594.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/42ce7f58-9b3b-442b-bad3-3dd63ae00594.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/42ce7f58-9b3b-442b-bad3-3dd63ae00594/storage_v2/_src_/database/hibernats.YJgeyg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/42ce7f58-9b3b-442b-bad3-3dd63ae00594/storage_v2/_src_/database/hibernats.YJgeyg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/data/model/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/data/model/entity/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/data/model/entity/OrderRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/data/model/entity/OrderRegistration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/data/model/entity/SubJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/data/model/entity/SubJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/BasicJobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/BasicJobRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/OrderRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/OrderRegistrationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/PersonRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/SubJobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/repository/SubJobRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/service/BasicJobsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/service/BasicJobsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/service/OrderRegistrationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/service/OrderRegistrationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/service/SubJobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/service/SubJobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/service/PersonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/service/PersonServiceImPl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/service/PersonServiceImPl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/maktab/util/ValidationInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/maktab/util/ValidationInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +74,7 @@
       <recent name="ir.maktab.repository" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestApp.testAddOrder">
+  <component name="RunManager" selected="JUnit.TestApp.testPersonService">
     <configuration name="ImageFormatExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ir.maktab.util.ImageFormatExample" />
       <module name="project_final" />
@@ -136,8 +130,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestApp.testAddOrder" />
         <item itemvalue="JUnit.TestApp.testPersonService" />
+        <item itemvalue="JUnit.TestApp.testAddOrder" />
         <item itemvalue="JUnit.TestApp.testSaveServices" />
         <item itemvalue="Application.ImageFormatExample" />
         <item itemvalue="JUnit.TestApp.testAddAndDelete" />
@@ -168,6 +162,7 @@
       <workItem from="1673984182295" duration="5127000" />
       <workItem from="1673994796821" duration="10874000" />
       <workItem from="1674041353229" duration="18228000" />
+      <workItem from="1674068115542" duration="1977000" />
     </task>
     <servers />
   </component>
@@ -195,11 +190,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/TestApp.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/TestApp.java</url>
           <line>67</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
@@ -215,7 +205,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/TestApp.java</url>
-          <line>80</line>
+          <line>79</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>

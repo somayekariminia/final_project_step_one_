@@ -33,7 +33,7 @@ public class OrderRegistrationServiceImpl {
 
     private void checkOrderRepeat(OrderRegistration orderRegistration){
         if(!findAll().isEmpty())
-            if(findAll().stream().anyMatch(orderRegistration1 -> orderRegistration.equals(orderRegistration)))
+            if(findAll().stream().anyMatch(order ->order.getCodeOrder().equals(orderRegistration.getCodeOrder()) ))
                 throw new RepeatException("this order already is exist");
 
     }

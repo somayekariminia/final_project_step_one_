@@ -4,10 +4,11 @@ import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.Person;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public interface PersonService {
-    void save(Person t, File file);
+    void save(Person t, File file) throws IOException;
 
     Person findByUserName(String userName);
 

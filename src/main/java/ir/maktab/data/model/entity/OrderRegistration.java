@@ -25,6 +25,9 @@ public class OrderRegistration {
     private BigDecimal offerPrice;
     private String aboutWork;
 
+    @Column(unique = true)
+    private String codeOrder;
+
     @Temporal(value = TemporalType.DATE)//view
     private Date doWorkDate;
 

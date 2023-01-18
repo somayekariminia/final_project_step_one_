@@ -1,6 +1,5 @@
 package ir.maktab.service;
 
-import ir.maktab.data.model.entity.BasicJob;
 import ir.maktab.data.model.entity.SubJob;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.NullableException;
@@ -14,7 +13,7 @@ public class SubJobServiceImpl {
 
     private SubJobRepository subJobRepository = SubJobRepository.getInstance();
     private BasicJobService basicJobService = BasicJobsService.getInstance();
-   private static SubJobServiceImpl instance = new SubJobServiceImpl();
+    private static SubJobServiceImpl instance = new SubJobServiceImpl();
 
     private SubJobServiceImpl() {
     }
@@ -30,18 +29,16 @@ public class SubJobServiceImpl {
     }
 
     private void checkSubJob(SubJob subJob) {
-        List<BasicJob> basicJobList = basicJobService.findAllBasicJobs();
+        List<SubJob>listSubJob=findAll();
         if (basicJobService.findAllBasicJobs().stream().noneMatch(basicJob -> basicJob.getNameBase().equals(subJob.getBasicJob().getNameBase())))
             throw new NotFoundException("There are no basic services for this sub-service");
-        if (findAll().stream().anyMatch(subJob1 -> subJob.getSubJobName().equals(subJob.getSubJobName())))
-            throw new RepeatException("this subService Already saved");
+        if (!listSubJob.isEmpty())
+            if (listSubJob.stream().anyMatch(subJob1 -> subJob1.getSubJobName().equals(subJob.getSubJobName())))
+                throw new RepeatException("this subService Already saved");
     }
 
     public List<SubJob> findAll() {
-        List<SubJob> subJobList = subJobRepository.getAll();
-        if (subJobList.isEmpty())
-            throw new NotFoundException("subjob list is null");
-        return subJobList;
+        return subJobRepository.getAll();
     }
 
     public void updateSubJob(SubJob subJob) {
@@ -57,7 +54,7 @@ public class SubJobServiceImpl {
     }
 
     public SubJob finByName(String name) {
-        return subJobRepository.getByName("name").orElseThrow(() -> new NotFoundException("SubJob is null"));
+        return subJobRepository.getByName(name).orElseThrow(() -> new NotFoundException("SubJob is null"));
     }
 
 }

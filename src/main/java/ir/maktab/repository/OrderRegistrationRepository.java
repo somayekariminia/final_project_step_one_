@@ -22,7 +22,7 @@ public class OrderRegistrationRepository implements InRepository<OrderRegistrati
     public void save(OrderRegistration orderRegistration) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
-            entityManager.getTransaction();
+            entityManager.getTransaction().begin();
             entityManager.persist(orderRegistration);
             entityManager.getTransaction().commit();
             entityManager.close();

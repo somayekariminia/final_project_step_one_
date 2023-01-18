@@ -46,8 +46,6 @@ public class BasicJobsService implements BasicJobService {
     @Override
     public List<BasicJob> findAllBasicJobs() {
         List<BasicJob> listBasicJob = basicJobRepository.getAll();
-        if (listBasicJob.isEmpty())
-            throw new NotFoundException("list of BasicJobs is Empty");
         return listBasicJob;
     }
 
@@ -63,12 +61,14 @@ public class BasicJobsService implements BasicJobService {
     public void deleteServices(BasicJob basicJob) {
         if (Objects.isNull(basicJob))
             throw new NullableException("basic is null");
+        subJobService.findAll().stream().filter(subJob -> subJob.getBasicJob().getNameBase().equals(basicJob.getNameBase())).forEach(subJob -> subJobService.deleteSubJob(subJob));
         basicJobRepository.delete(basicJob);
     }
 
     private void existServiceInDb(String nameBasicJob) {
-        if (findAllBasicJobs().stream().anyMatch(basicJob1 -> basicJob1.getNameBase().equals(nameBasicJob)))
-            throw new RepeatException("this basicService already in db");
+        if (!findAllBasicJobs().isEmpty())
+            if (findAllBasicJobs().stream().anyMatch(basicJob1 -> basicJob1.getNameBase().equals(nameBasicJob)))
+                throw new RepeatException("this basicService already in db");
     }
 
 

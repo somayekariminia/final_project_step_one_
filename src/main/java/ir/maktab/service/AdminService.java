@@ -11,18 +11,19 @@ import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.AdminRepository;
 
 public class AdminService {
-    private final PersonService expertService = new PersonServiceImPl();
+    private final PersonService personServiceImPl = new PersonServiceImPl();
     private final AdminRepository adminRepository = new AdminRepository();
 
     public void addExpertToSubJob(Expert expert, SubJob subJob) {
-        Person expertDb = expertService.findByUserName(expert.getEmail());
+        Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
         if(((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState))
             throw new ValidationException("this Expert isnot confirm ");
         if (((Expert) expertDb).getServicesList().stream().anyMatch(subJob1 -> subJob1.getSubJobName().equals(subJob.getSubJobName())))
             throw new RepeatException("this subject already exist");
         ((Expert) expertDb).getServicesList().add(subJob);
-        expertService.update(expertDb);
+        personServiceImPl.update(expertDb);
     }
+
 
     public Admin login(String userName, String password) {
         Admin admin = adminRepository.findByUserName(userName).orElseThrow(() -> new NotFoundException("Admin not found with this userName"));
@@ -33,18 +34,18 @@ public class AdminService {
     }
 
     public void deleteExpertOfSubJob(Expert expert, SubJob subJob) {
-        Person expertDb = expertService.findByUserName(expert.getEmail());
+        Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
         if (((Expert) expertDb).getServicesList().isEmpty())
             throw new NotFoundException("subJob not exist");
         ((Expert) expertDb).getServicesList().remove(subJob);
-        expertService.update(expertDb);
+        personServiceImPl.update(expertDb);
     }
 
     public void isConfirmExpertByAdmin(Expert expert) {
-        Person expertDb = expertService.findByUserName(expert.getEmail());
+        Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
         if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState)) ;
         ((Expert) expertDb).setSpecialtyStatus(SpecialtyStatus.Confirmed);
-        expertService.update(expertDb);
+        personServiceImPl.update(expertDb);
     }
 
 }

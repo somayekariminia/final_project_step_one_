@@ -70,19 +70,19 @@ public class BasicJobRepository implements InRepository<BasicJob, Long> {
     public void delete(BasicJob basicJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();
-        BasicJob servicesDeleted = entityManager.find(SubJob.class, basicJob.getId());
+        BasicJob servicesDeleted = entityManager.find(BasicJob.class, basicJob.getId());
         entityManager.remove(servicesDeleted);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public Optional<SubJob> getByName(String name) {
+    public Optional<BasicJob> getByName(String name) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        SubJob subJob;
+        BasicJob subJob;
         try {
             entityManager.getTransaction().begin();
-            subJob = (SubJob) entityManager.createQuery("select s from SubJob s where s.subJobName=:subJobName").
-                    setParameter("subJobName", name).getSingleResult();
+            subJob = (BasicJob) entityManager.createQuery("select s from BasicJob s where s.nameBase=:nameBase").
+                    setParameter("nameBase", name).getSingleResult();
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (NoResultException ex) {

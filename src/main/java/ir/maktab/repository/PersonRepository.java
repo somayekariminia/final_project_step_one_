@@ -73,7 +73,7 @@ public class PersonRepository implements InRepository<Person,Long>{
         Person expert;
         try {
             entityManager.getTransaction();
-            expert = (Expert) entityManager.createQuery("select e from Person e where e.email=:email").
+            expert = (Person) entityManager.createQuery("select e from Person e where e.email=:email").
                     setParameter("email", userName).getSingleResult();
             entityManager.close();
         } catch (NoResultException ex) {

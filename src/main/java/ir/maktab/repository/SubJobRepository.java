@@ -52,7 +52,7 @@ public class SubJobRepository implements InRepository<SubJob, Long> {
     public List<SubJob> getAll() {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();
-        List<SubJob> subJobList = (List<SubJob>) entityManager.createQuery("select s from  SubJob b").getResultList();
+        List<SubJob> subJobList = (List<SubJob>) entityManager.createQuery("select b from  SubJob b").getResultList();
         entityManager.close();
         return subJobList;
     }
@@ -70,7 +70,7 @@ public class SubJobRepository implements InRepository<SubJob, Long> {
     public void delete(SubJob subJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();
-        BasicJob servicesDeleted = entityManager.find(SubJob.class, subJob.getId());
+        SubJob servicesDeleted = entityManager.find(SubJob.class, subJob.getId());
         entityManager.remove(servicesDeleted);
         entityManager.getTransaction().commit();
         entityManager.close();

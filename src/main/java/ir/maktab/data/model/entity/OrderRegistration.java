@@ -18,20 +18,31 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class OrderRegistration {
-    @OneToMany
-    List<Offers> offersList = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private BigDecimal offerPrice;
     private String aboutWork;
+
     @Temporal(value = TemporalType.DATE)//view
     private Date doWorkDate;
+
     @Temporal(value = TemporalType.DATE)
     private Date startDoWorkDate;
+
     private String address;
+
+    @Enumerated
     private OrderStatus orderStatus;
+
     @OneToOne
     private SubJob subJob;
+
+    @ManyToOne
+    Customer customer;
+
+    @OneToMany
+    List<Offers> offersList = new ArrayList<>();
 
 }

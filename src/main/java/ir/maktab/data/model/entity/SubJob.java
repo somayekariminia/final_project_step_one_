@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class SubJob extends BasicJob {
+public class SubJob {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -30,8 +30,8 @@ public class SubJobServiceImpl {
     }
 
     private void checkSubJob(SubJob subJob) {
-        List<BasicJob> basicJobList = basicJobService.findAll();
-        if (basicJobService.findAll().stream().noneMatch(basicJob -> basicJob.getNameBase().equals(subJob.getBasicJob().getNameBase())))
+        List<BasicJob> basicJobList = basicJobService.findAllBasicJobs();
+        if (basicJobService.findAllBasicJobs().stream().noneMatch(basicJob -> basicJob.getNameBase().equals(subJob.getBasicJob().getNameBase())))
             throw new NotFoundException("There are no basic services for this sub-service");
         if (findAll().stream().anyMatch(subJob1 -> subJob.getSubJobName().equals(subJob.getSubJobName())))
             throw new RepeatException("this subService Already saved");

@@ -1,4 +1,5 @@
 package ir.maktab.util;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ public class ImageFormatExample {
 
 //Create ImageInputStream using Image File
         ImageInputStream imageInputStream = ImageIO.createImageInputStream(new File("image.png"));
-
+        BufferedImage image = ImageIO.read(imageInputStream);
 //Get the image readers for that file
         Iterator<ImageReader> imageReadersList = ImageIO.getImageReaders(imageInputStream);
 
@@ -35,6 +36,5 @@ public class ImageFormatExample {
 
 //Close stream (best practice)
         imageInputStream.close();
-
     }
 }

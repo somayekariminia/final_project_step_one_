@@ -6,24 +6,27 @@ import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.PersonRepository;
+import ir.maktab.util.ValidationInput;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class PersonServiceImPl implements PersonService{
+public class PersonServiceImPl implements PersonService {
     private final PersonRepository personRepository = new PersonRepository();
 
- /*   @Override
-    public void save(Person person) {
-        checkImage(person.getExpertImage());
-        expertRepository.save(person);
-    }*/
-
-    public void save(Person person) {
-
-        if (person instanceof Expert)
-            checkImage(((Expert) person).getExpertImage());
+    public void save(Person person, File file) {
+        validateInfoPerson(person);
+        if (person instanceof Expert) {
+            try {
+                ((Expert) person).setExpertImage(ValidationInput.validateImage(file));
+                ((Expert) person).setSpecialtyStatus(SpecialtyStatus.NewState);
+            } catch (IOException | ValidationException e) {
+                System.err.println(e.getMessage());
+            }
+        }
         personRepository.save(person);
     }
 
@@ -41,10 +44,6 @@ public class PersonServiceImPl implements PersonService{
         update(person);
     }
 
-    private void checkImage(byte[] expertImage) {
-        if ((expertImage.length / 1024) >= 300)
-            throw new ValidationException("size image is bigger of 300 kb");
-    }
 
     public Person findByUserName(String userName) {
         return personRepository.findByUserName(userName).orElseThrow(() -> new NotFoundException("Person not found with this userName"));
@@ -64,5 +63,18 @@ public class PersonServiceImPl implements PersonService{
 
     public List<Person> findAllExpertsIsNotConfirm() {
         return findAllPerson().stream().filter(expert -> expert instanceof Expert && ((Expert) expert).getSpecialtyStatus().equals(SpecialtyStatus.NewState)).collect(Collectors.toList());
+    }
+
+    private void validateInfoPerson(Person person) {
+
+        try {
+            ValidationInput.validateName(person.getFirstName());
+            ValidationInput.validateName(person.getLastName());
+            ValidationInput.validateEmail(person.getEmail());
+            ValidationInput.validateUserName(person.getPassword());
+        } catch (ValidationException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 }

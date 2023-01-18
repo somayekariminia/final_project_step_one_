@@ -59,24 +59,27 @@ public class TestApp {
     @Test
     public void testAddAndDelete() {
         PersonService expertService = new PersonServiceImPl();
-        AdminService adminService = new AdminService();
+        AdminServiceImpl adminServiceImpl = new AdminServiceImpl();
         BasicJobService basicJobService = BasicJobsService.getInstance();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
         Person expert = expertService.findByUserName("ali@akbari.com");
         SubJob subJob = subJobService.finByName("soft");
-        adminService.addExpertToSubJob((Expert) expert, subJob);
-        adminService.deleteExpertOfSubJob((Expert) expert, subJob);
+        adminServiceImpl.addExpertToSubJob((Expert) expert, subJob);
+        adminServiceImpl.deleteExpertOfSubJob((Expert) expert, subJob);
     }
+
     @Test
     public void testAddOrder() {
         PersonService personService = new PersonServiceImPl();
-       Person customer = personService.findByUserName("somaye@qrt.com");
-       OrderRegistrationServiceImpl orderRegistrationService=new OrderRegistrationServiceImpl();
-       SubJobServiceImpl subJobService=SubJobServiceImpl.getInstance();
-       SubJob subJob=subJobService.finByName("soft");
+        Person customer = personService.findByUserName("somaye@qrt.com");
+        OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
+        SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
+        SubJob subJob = subJobService.finByName("soft");
         LocalDate localDate = LocalDate.of(2023, 01, 30);
         OrderRegistration orderRegistration = OrderRegistration.builder().address("kerman").codeOrder("order1").
-                aboutWork("doing to wash soft").offerPrice(new BigDecimal(30e4)).doWorkDate(UtilDate.changeLocalDateToDate(localDate)).subJob(subJob).customer((Customer) customer).build();
+                aboutWork("doing to wash soft").offerPrice(new BigDecimal(30e4)).
+                doWorkDate(UtilDate.changeLocalDateToDate(localDate)).
+                subJob(subJob).customer((Customer) customer).build();
         orderRegistrationService.saveOrder(orderRegistration);
     }
 }

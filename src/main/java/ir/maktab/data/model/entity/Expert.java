@@ -21,7 +21,7 @@ public class Expert extends Person {
     @ManyToMany(fetch = FetchType.EAGER)
     List<SubJob> servicesList = new ArrayList<>();
 
-    private double rating;
+    private double performance;
 
     @ToString.Exclude
     @OneToMany

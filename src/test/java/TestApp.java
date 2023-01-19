@@ -34,7 +34,7 @@ public class TestApp {
         subJob.setPrice(new BigDecimal(25e4));
         subJobService.updateSubJob(subJob);
         subJobService.deleteSubJob(subJob1);
-        basicJobService.deleteServices(basicJob);
+
     }
 
     @Test
@@ -52,10 +52,11 @@ public class TestApp {
                 lastName("akbari").email("ali@akbari.com").password("Ali12345").specialtyStatus(SpecialtyStatus.NewState).build();
         PersonServiceImPl personService = new PersonServiceImPl();
         personService.save(customer, new File(""));
-        personService.save(expert, new File("image.png"));
+        personService.save(expert, new File("OIF.jpg"));
         List<Person> all = personService.findAllExpertsIsNotConfirm();
         all.forEach(System.out::println);
         all.forEach(Person::getEmail);
+
     }
 
     @Test
@@ -64,6 +65,7 @@ public class TestApp {
         AdminServiceImpl adminServiceImpl = new AdminServiceImpl();
         BasicJobService basicJobService = BasicJobsService.getInstance();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
+        adminServiceImpl.isConfirmExpertByAdmin("ali@akbari.com");
         Person expert = expertService.findByUserName("ali@akbari.com");
         SubJob subJob = subJobService.finByName("soft");
         adminServiceImpl.addExpertToSubJob((Expert) expert, subJob);

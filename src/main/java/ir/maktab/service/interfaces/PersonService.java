@@ -20,4 +20,5 @@ public interface PersonService {
     void update(Person person);
 
     List<Person> findAllExpertsIsNotConfirm();
+    List<Person> findAllExpertsApproved();
 }

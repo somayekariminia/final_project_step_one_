@@ -1,8 +1,8 @@
 package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
-import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.Person;
+import ir.maktab.repository.interfaces.InRepository;
 
 
 import javax.persistence.EntityManager;
@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class PersonRepository implements InRepository<Person,Long>{
+public class PersonRepository implements InRepository<Person,Long> {
     @Override
     public void save(Person person) {
        EntityManager entityManager=ConfigJpa.getInstance().createEntityManager();

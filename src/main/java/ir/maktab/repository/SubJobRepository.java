@@ -1,8 +1,8 @@
 package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
-import ir.maktab.data.model.entity.BasicJob;
 import ir.maktab.data.model.entity.SubJob;
+import ir.maktab.repository.interfaces.InRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

@@ -25,7 +25,7 @@ public class PersonServiceImPl implements PersonService {
         if (person instanceof Expert) {
             ((Expert) person).setExpertImage(ValidationInput.validateImage(file));
             ((Expert) person).setSpecialtyStatus(SpecialtyStatus.NewState);
-            ((Expert) person).setRating(0);
+            ((Expert) person).setPerformance(0);
         }
         personRepository.save(person);
     }
@@ -62,19 +62,28 @@ public class PersonServiceImPl implements PersonService {
     public List<Person> findAllPerson() {
         List<Person> listExpert = personRepository.getAll();
         if (listExpert.isEmpty())
-            throw new NotFoundException("List Experts Are empty");
+            throw new NotFoundException("there arent experts");
         return listExpert;
     }
 
     @Override
+    public List<Person> findAllExpertsApproved() {
+        return findAllPerson().stream().filter(expert -> expert instanceof Expert && ((Expert) expert).
+                        getSpecialtyStatus().equals(SpecialtyStatus.Confirmed)).
+                collect(Collectors.toList());
+    }
+
+    @Override
     public List<Person> findAllExpertsIsNotConfirm() {
-        return findAllPerson().stream().filter(expert -> expert instanceof Expert && ((Expert) expert).getSpecialtyStatus().equals(SpecialtyStatus.NewState)).collect(Collectors.toList());
+        return findAllPerson().stream().filter(expert -> expert instanceof Expert && ((Expert) expert).
+                        getSpecialtyStatus().equals(SpecialtyStatus.NewState)).
+                collect(Collectors.toList());
     }
 
     private void validateInfoPerson(Person person) {
-            ValidationInput.validateName(person.getFirstName());
-            ValidationInput.validateName(person.getLastName());
-            ValidationInput.validateEmail(person.getEmail());
-            ValidationInput.validateUserName(person.getPassword());
+        ValidationInput.validateName(person.getFirstName());
+        ValidationInput.validateName(person.getLastName());
+        ValidationInput.validateEmail(person.getEmail());
+        ValidationInput.validateUserName(person.getPassword());
     }
 }

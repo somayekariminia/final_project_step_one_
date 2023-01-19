@@ -16,11 +16,16 @@ import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
-
+        try {
+            final var sizeImage = getSizeImage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     public static byte[] getSizeImage() throws IOException {
-        BufferedImage originalImage = ImageIO.read(new File("image.png"));
-        ImageInputStream imageInputStream = ImageIO.createImageInputStream(originalImage);
+
+        ImageInputStream imageInputStream = ImageIO.createImageInputStream(new File("OIF.jpg"));
         Iterator<ImageReader> imageReadersList = ImageIO.getImageReaders(imageInputStream);
         if (!imageReadersList.hasNext()) {
             throw new RuntimeException("Image Readers Not Found!!!");
@@ -28,11 +33,9 @@ public class Main {
         ImageReader reader = imageReadersList.next();
         System.out.println("Image Format: " + reader.getFormatName());
         imageInputStream.close();
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(originalImage, "jpg", bos);
-       return bos.toByteArray();
+        BufferedImage bufferedImage=ImageIO.read(new File("image.png"));
         /*BufferedImage imBuff = ImageIO.read(object.getInputStream());
         ImageInputStream iis = ImageIO.createImageInputStream(is);*/
+        return new byte[1400];
     }
-
 }

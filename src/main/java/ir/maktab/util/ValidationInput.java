@@ -36,8 +36,8 @@ public class ValidationInput {
             throw new NotFoundException("Image Readers Not Found!!!");
         }
         ImageReader reader = imageReaders.next();
-        if (!reader.getFormatName().equals("jpej"))
-            throw new ValidationException("Photo format not valid should be jpg format");
+        if (!reader.getFormatName().equalsIgnoreCase("JPEG"))
+            throw new ValidationException("Photo format not valid should be jpg or jpeg format ");
         imageInputStream.close();
     }
 

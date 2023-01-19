@@ -1,12 +1,15 @@
 package ir.maktab.service;
 
+import ir.maktab.data.model.entity.BasicJob;
 import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.Person;
+import ir.maktab.data.model.entity.SubJob;
 import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.PersonRepository;
 import ir.maktab.service.interfaces.PersonService;
+import ir.maktab.util.UtilImage;
 import ir.maktab.util.ValidationInput;
 
 import java.io.File;
@@ -18,12 +21,13 @@ import java.util.stream.Collectors;
 
 public class PersonServiceImPl implements PersonService {
     private final PersonRepository personRepository = new PersonRepository();
+    private final BasicJobsService basicJobsService = BasicJobsService.getInstance();
 
     @Override
     public void save(Person person, File file) throws IOException {
         validateInfoPerson(person);
         if (person instanceof Expert) {
-            ((Expert) person).setExpertImage(ValidationInput.validateImage(file));
+            ((Expert) person).setExpertImage(UtilImage.validateImage(file));
             ((Expert) person).setSpecialtyStatus(SpecialtyStatus.NewState);
             ((Expert) person).setPerformance(0);
         }
@@ -38,6 +42,21 @@ public class PersonServiceImPl implements PersonService {
         else
             throw new ValidationException("Your password is incorrect");
     }
+
+    public List<BasicJob> viewAllBasicJobs() {
+        List<BasicJob> allBasicJobs = basicJobsService.findAllBasicJobs();
+        if (allBasicJobs.isEmpty())
+            throw new NotFoundException("there arent basicJob");
+        return allBasicJobs;
+    }
+
+    public List<SubJob> viewSubJobsABasicJob(String nameBasicJob) {
+        List<SubJob> allSubJobsABasicJob = basicJobsService.findAllSubJobsABasicJob(nameBasicJob);
+        if (allSubJobsABasicJob.isEmpty())
+            throw new NotFoundException("there arent subJob for the basicJob");
+        return allSubJobsABasicJob;
+    }
+
 
     @Override
     public void changePassword(String userName, String passwordOld, String newPassword) {

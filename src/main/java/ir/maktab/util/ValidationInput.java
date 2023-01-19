@@ -29,25 +29,4 @@ public class ValidationInput {
         valid.accept(name,"[a-zA-Z]+","your name is invalid");
     }
 
-    private static void checkFormatImage(File file) throws IOException {
-        ImageInputStream imageInputStream = ImageIO.createImageInputStream(file);
-        Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(imageInputStream);
-        if (!imageReaders.hasNext()) {
-            throw new NotFoundException("Image Readers Not Found!!!");
-        }
-        ImageReader reader = imageReaders.next();
-        if (!reader.getFormatName().equalsIgnoreCase("JPEG"))
-            throw new ValidationException("Photo format not valid should be jpg or jpeg format ");
-        imageInputStream.close();
-    }
-
-    public static byte[] validateImage(File file) throws IOException {
-        checkFormatImage(file);
-        BufferedImage originalImage = ImageIO.read(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(originalImage, "jpg", bos);
-        if (bos.size() / 1024 > 300)
-            throw new ValidationException("format image bigger of 300Kb");
-        return bos.toByteArray();
-    }
 }

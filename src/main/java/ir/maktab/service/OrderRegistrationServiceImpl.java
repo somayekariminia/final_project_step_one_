@@ -23,7 +23,7 @@ public class OrderRegistrationServiceImpl implements OrderRegistrationService {
         if (orderRegistration.getOfferPrice().compareTo(orderRegistration.getSubJob().getPrice()) < 0)
             throw new ValidationException("priceOffer lower of basic price");
         if (UtilDate.compareTwoDate(orderRegistration.getDoWorkDate(), today) < 0)
-            throw new ValidationException("Your registered date has expired ");
+            throw new ValidationException("You can't order before today ");
         orderRegistration.setOrderStatus(OrderStatus.WaitingForTheExperts);
         orderRegistrationRepository.save(orderRegistration);
     }

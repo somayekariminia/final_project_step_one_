@@ -5,7 +5,6 @@ import ir.maktab.data.model.entity.SubJob;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.NullableException;
 import ir.maktab.exception.RepeatException;
-import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.BasicJobRepository;
 import ir.maktab.service.interfaces.BasicJobService;
 
@@ -27,12 +26,8 @@ public class BasicJobsService implements BasicJobService {
 
     @Override
     public void save(BasicJob services) {
-        try {
-            existServiceInDb(services.getNameBase());
-            basicJobRepository.save(services);
-        } catch (ValidationException ve) {
-            System.err.println(ve.getMessage());
-        }
+        existServiceInDb(services.getNameBase());
+        basicJobRepository.save(services);
     }
 
     public List<SubJob> findAllSubJobsABasicJob(String nameBasicJob) {
@@ -46,8 +41,9 @@ public class BasicJobsService implements BasicJobService {
 
     @Override
     public List<BasicJob> findAllBasicJobs() {
-       return basicJobRepository.getAll();
+        return basicJobRepository.getAll();
     }
+
     @Override
     public void updateServices(BasicJob basicJob) {
         if (Objects.isNull(basicJob))

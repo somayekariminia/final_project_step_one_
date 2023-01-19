@@ -15,6 +15,9 @@ public interface AdminService {
 
     void changePassword(String userName, String passwordOld, String newPassword);
 
+    void saveBasicJob(BasicJob basicJob);
+    void saveSubJob(SubJob subJob);
+
     List<Person> viewExpertsUnapproved();
 
     List<Person> viewAllExpertsApproved();

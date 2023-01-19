@@ -43,6 +43,7 @@ public class PersonServiceImPl implements PersonService {
             throw new ValidationException("Your password is incorrect");
     }
 
+    @Override
     public List<BasicJob> viewAllBasicJobs() {
         List<BasicJob> allBasicJobs = basicJobsService.findAllBasicJobs();
         if (allBasicJobs.isEmpty())
@@ -50,6 +51,7 @@ public class PersonServiceImPl implements PersonService {
         return allBasicJobs;
     }
 
+    @Override
     public List<SubJob> viewSubJobsABasicJob(String nameBasicJob) {
         List<SubJob> allSubJobsABasicJob = basicJobsService.findAllSubJobsABasicJob(nameBasicJob);
         if (allSubJobsABasicJob.isEmpty())

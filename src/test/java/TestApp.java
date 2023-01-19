@@ -43,7 +43,7 @@ public class TestApp {
         Person customer = Customer.builder().
                 firstName("somaye").
                 lastName("karimi").email("somaye@qrt.com").password("Somaye12").build();
-        BufferedImage originalImage = ImageIO.read(new File("OIF.jpg"));
+        BufferedImage originalImage = ImageIO.read(new File("image.png"));
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(originalImage, "jpg", bos);
 
@@ -52,7 +52,7 @@ public class TestApp {
                 lastName("akbari").email("ali@akbari.com").password("Ali12345").specialtyStatus(SpecialtyStatus.NewState).build();
         PersonServiceImPl personService = new PersonServiceImPl();
         personService.save(customer, new File(""));
-        personService.save(expert, new File("OIF.jpg"));
+        personService.save(expert, new File("image.png"));
         List<Person> all = personService.findAllExpertsIsNotConfirm();
         all.forEach(System.out::println);
         all.forEach(Person::getEmail);
@@ -80,7 +80,7 @@ public class TestApp {
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
         SubJob subJob = subJobService.finByName("soft");
         LocalDate localDate = LocalDate.of(2023, 01, 30);
-        OrderRegistration orderRegistration = OrderRegistration.builder().address("kerman").codeOrder("order1").
+        OrderRegistration orderRegistration = OrderRegistration.builder().address(Address.builder().city("kerman").build()).codeOrder("order1").
                 aboutWork("doing to wash soft").offerPrice(new BigDecimal(30e4)).
                 doWorkDate(UtilDate.changeLocalDateToDate(localDate)).
                 subJob(subJob).customer((Customer) customer).build();

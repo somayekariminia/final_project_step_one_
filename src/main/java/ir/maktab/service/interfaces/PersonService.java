@@ -1,6 +1,8 @@
 package ir.maktab.service.interfaces;
 
+import ir.maktab.data.model.entity.BasicJob;
 import ir.maktab.data.model.entity.Person;
+import ir.maktab.data.model.entity.SubJob;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +17,15 @@ public interface PersonService {
 
     void changePassword(String userName, String passwordOld, String newPassword);
 
-   List<Person> findAllPerson();
+    List<Person> findAllPerson();
 
     void update(Person person);
 
     List<Person> findAllExpertsIsNotConfirm();
+
     List<Person> findAllExpertsApproved();
+
+    List<BasicJob> viewAllBasicJobs();
+
+    List<SubJob> viewSubJobsABasicJob(String nameBasicJob);
 }

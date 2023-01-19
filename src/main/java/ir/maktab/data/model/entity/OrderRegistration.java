@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,7 +31,8 @@ public class OrderRegistration {
     @Temporal(value = TemporalType.DATE)
     private Date doWorkDate;
 
-    private String address;
+    @OneToOne
+    Address address;
 
     @Enumerated
     private OrderStatus orderStatus;

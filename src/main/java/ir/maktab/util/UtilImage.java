@@ -20,7 +20,7 @@ public class UtilImage {
             throw new NotFoundException("Image Readers Not Found!!!");
         }
         ImageReader reader = imageReaders.next();
-        if (!reader.getFormatName().equalsIgnoreCase("JPEG"))
+        if (!(reader.getFormatName().equalsIgnoreCase("jpeg") || reader.getFormatName().equalsIgnoreCase("jpg")))
             throw new ValidationException("Photo format not valid should be jpg or jpeg format ");
         imageInputStream.close();
     }

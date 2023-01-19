@@ -13,25 +13,20 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class ValidationInput {
-    public static String validateUserName(String userName) {
-        if (userName.matches("(?=.{8}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"))
-            return userName;
-        else
-            throw new ValidationException("Your Username Is Invalid");
+   private static InterFaceValid valid= (v,r,e)->{
+      if(v=="" || !v.matches(r))
+          throw new ValidationException(e);
+    };
+    public static void validateUserName(String userName) {
+        valid.accept(userName,"(?=.{8}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$","Your Username Is Invalid");
     }
 
-    public static String validateEmail(String email) {
-        if (email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.]+@[a-zA-Z0-9.]+$"))
-            return email;
-        else
-            throw new ValidationException("Your email Is Invalid");
+    public static void validateEmail(String email) {
+        valid.accept(email,"^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.]+@[a-zA-Z0-9.]+$","Your email Is Invalid");
     }
 
-    public static String validateName(String name) {
-        if (name.matches("[a-zA-Z]+"))
-            return name;
-        else
-            throw new ValidationException("your name is invalid");
+    public static void validateName(String name) {
+        valid.accept(name,"[a-zA-Z]+","your name is invalid");
     }
 
     private static void checkFormatImage(File file) throws IOException {

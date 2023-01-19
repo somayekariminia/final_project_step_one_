@@ -2,6 +2,7 @@ package ir.maktab.data.model.entity;
 
 import ir.maktab.data.model.enums.OrderStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -16,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@Builder
 public class OrderRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +29,8 @@ public class OrderRegistration {
     @Column(unique = true)
     private String codeOrder;
 
-    @Temporal(value = TemporalType.DATE)//view
-    private Date doWorkDate;
-
     @Temporal(value = TemporalType.DATE)
-    private Date startDoWorkDate;
+    private Date doWorkDate;
 
     private String address;
 

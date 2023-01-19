@@ -21,6 +21,7 @@ public class SubJob {
     private String subJobName;
     private BigDecimal price;
     private String description;
+
     @ManyToOne
     BasicJob basicJob;
 }

@@ -1,6 +1,8 @@
 import ir.maktab.data.model.entity.*;
 import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.service.*;
+import ir.maktab.service.interfaces.BasicJobService;
+import ir.maktab.service.interfaces.PersonService;
 import ir.maktab.util.UtilDate;
 import org.junit.jupiter.api.Test;
 

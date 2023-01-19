@@ -5,6 +5,8 @@ import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.NullableException;
 import ir.maktab.exception.RepeatException;
 import ir.maktab.repository.SubJobRepository;
+import ir.maktab.service.interfaces.BasicJobService;
+import ir.maktab.service.interfaces.SubJobService;
 
 import java.util.List;
 import java.util.Objects;

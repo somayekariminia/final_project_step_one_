@@ -9,6 +9,10 @@ import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.RepeatException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.AdminRepository;
+import ir.maktab.service.interfaces.AdminService;
+import ir.maktab.service.interfaces.PersonService;
+
+import java.util.Objects;
 
 public class AdminServiceImpl implements AdminService {
     private final PersonService personServiceImPl = new PersonServiceImPl();
@@ -44,10 +48,24 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void isConfirmExpertByAdmin(Expert expert) {
-        Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
-        if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState))
+    public void changePassword(String userName, String passwordOld, String newPassword) {
+        Admin person = login(userName, passwordOld);
+        person.setPassword(newPassword);
+        update(person);
+    }
+
+    private void update(Admin admin) {
+        if (Objects.isNull(admin))
+            throw new NotFoundException("admin not exist");
+        adminRepository.update(admin);
+    }
+
+    @Override
+    public void isConfirmExpertByAdmin(String userName) {
+        Person expertDb = personServiceImPl.findByUserName(userName);
+        if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState)) {
             ((Expert) expertDb).setSpecialtyStatus(SpecialtyStatus.Confirmed);
+        }
         personServiceImPl.update(expertDb);
     }
 

@@ -2,7 +2,6 @@ package ir.maktab.repository;
 
 import ir.maktab.Config.ConfigJpa;
 import ir.maktab.data.model.entity.Admin;
-import ir.maktab.data.model.entity.Expert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -35,5 +34,11 @@ public class AdminRepository {
         }
         return Optional.ofNullable(admin);
     }
-
+    public void update(Admin admin) {
+        EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(admin);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

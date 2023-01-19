@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderRegistrationRepository implements InRepository<OrderRegistration, Long> {
-    private static OrderRegistrationRepository instance = new OrderRegistrationRepository();
+    private static final OrderRegistrationRepository instance = new OrderRegistrationRepository();
 
     private OrderRegistrationRepository() {
     }

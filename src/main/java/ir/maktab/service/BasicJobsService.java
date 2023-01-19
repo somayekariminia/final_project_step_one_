@@ -7,6 +7,7 @@ import ir.maktab.exception.NullableException;
 import ir.maktab.exception.RepeatException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.BasicJobRepository;
+import ir.maktab.service.interfaces.BasicJobService;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,8 +48,6 @@ public class BasicJobsService implements BasicJobService {
     public List<BasicJob> findAllBasicJobs() {
        return basicJobRepository.getAll();
     }
-
-
     @Override
     public void updateServices(BasicJob basicJob) {
         if (Objects.isNull(basicJob))
@@ -70,7 +69,6 @@ public class BasicJobsService implements BasicJobService {
             if (findAllBasicJobs().stream().anyMatch(basicJob1 -> basicJob1.getNameBase().equals(nameBasicJob)))
                 throw new RepeatException("this basicService already in db");
     }
-
 
     @Override
     public BasicJob findByName(String name) {

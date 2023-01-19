@@ -6,6 +6,7 @@ import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.PersonRepository;
+import ir.maktab.service.interfaces.PersonService;
 import ir.maktab.util.ValidationInput;
 
 import java.io.File;
@@ -24,6 +25,7 @@ public class PersonServiceImPl implements PersonService {
         if (person instanceof Expert) {
             ((Expert) person).setExpertImage(ValidationInput.validateImage(file));
             ((Expert) person).setSpecialtyStatus(SpecialtyStatus.NewState);
+            ((Expert) person).setRating(0);
         }
         personRepository.save(person);
     }
@@ -70,14 +72,9 @@ public class PersonServiceImPl implements PersonService {
     }
 
     private void validateInfoPerson(Person person) {
-        try {
             ValidationInput.validateName(person.getFirstName());
             ValidationInput.validateName(person.getLastName());
             ValidationInput.validateEmail(person.getEmail());
             ValidationInput.validateUserName(person.getPassword());
-        } catch (ValidationException e) {
-            System.err.println(e.getMessage());
-        }
-
     }
 }

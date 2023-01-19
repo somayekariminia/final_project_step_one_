@@ -1,4 +1,4 @@
-package ir.maktab.service;
+package ir.maktab.service.interfaces;
 
 import ir.maktab.data.model.entity.Admin;
 import ir.maktab.data.model.entity.Expert;
@@ -11,5 +11,6 @@ public interface AdminService {
 
     void deleteExpertOfSubJob(Expert expert, SubJob subJob);
 
-    void isConfirmExpertByAdmin(Expert expert);
+    void isConfirmExpertByAdmin(String userName);
+    void changePassword(String userName, String passwordOld, String newPassword);
 }

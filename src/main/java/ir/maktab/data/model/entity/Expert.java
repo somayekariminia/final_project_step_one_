@@ -1,7 +1,10 @@
 package ir.maktab.data.model.entity;
 
 import ir.maktab.data.model.enums.SpecialtyStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -15,10 +18,10 @@ import java.util.List;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Expert extends Person {
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     List<SubJob> servicesList = new ArrayList<>();
+
+    private double rating;
 
     @ToString.Exclude
     @OneToMany

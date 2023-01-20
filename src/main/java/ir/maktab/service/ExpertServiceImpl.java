@@ -14,9 +14,16 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
-public class ExpertService implements ir.maktab.service.interfaces.ExpertService {
+public class ExpertServiceImpl implements ir.maktab.service.interfaces.ExpertService {
+    private static final ExpertServiceImpl expertServiceImpl =new ExpertServiceImpl();
     private final ExpertRepository expertRepository = ExpertRepository.getInstance();
 
+    private ExpertServiceImpl() {
+    }
+
+    public static ExpertServiceImpl getInstance(){
+        return expertServiceImpl;
+    }
     @Override
     public void save(Expert expert, File file) {
         validateInfoPerson(expert);

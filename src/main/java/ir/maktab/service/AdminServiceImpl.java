@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AdminServiceImpl implements AdminService {
-    private final ExpertService expertServiceImPl = new ir.maktab.service.ExpertService();
+    private final ExpertService expertServiceImPl =ExpertServiceImpl.getInstance();
     private final AdminRepository adminRepository = new AdminRepository();
     private final BasicJobsService basicJobsService = BasicJobsService.getInstance();
     private final SubJobService subJobService = SubJobServiceImpl.getInstance();

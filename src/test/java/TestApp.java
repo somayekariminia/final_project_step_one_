@@ -24,9 +24,9 @@ public class TestApp {
     @Test
     public  void testAddOrder() {
         CustomerService customerService = new CustomerServiceImpl();
-        ExpertService expertService = new ir.maktab.service.ExpertService();
+        ExpertService expertService =ExpertServiceImpl.getInstance();
         Customer customer = customerService.findByUserName("somaye@qrt.com");
-        OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
+        OrderRegistrationServiceImpl orderRegistrationService = OrderRegistrationServiceImpl.getInstance();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
         SubJob subJob = subJobService.finByName("soft");
         LocalDate localDate = LocalDate.of(2023, 01, 30);
@@ -82,10 +82,10 @@ public class TestApp {
         byte[] image = bos.toByteArray();
         Expert expert = Expert.builder().firstName("ali").
                 lastName("akbari").email("ali@akbari.com").password("Ali12345").specialtyStatus(SpecialtyStatus.NewState).build();
-        ir.maktab.service.ExpertService expertService = new ir.maktab.service.ExpertService();
+        ExpertServiceImpl expertServiceImpl =ExpertServiceImpl.getInstance();
         /* customerService.save(customer);*/
-        expertService.save(expert, new File("OIF.jpg"));
-        List<Expert> all = expertService.findAllExpertsIsNotConfirm();
+        expertServiceImpl.save(expert, new File("OIF.jpg"));
+        List<Expert> all = expertServiceImpl.findAllExpertsIsNotConfirm();
         all.forEach(System.out::println);
         all.forEach(Person::getEmail);
 
@@ -93,7 +93,7 @@ public class TestApp {
 
     @Test
     public void testAddAndDelete() {
-        ExpertService expertService = new ir.maktab.service.ExpertService();
+        ExpertService expertService = ExpertServiceImpl.getInstance();
         AdminServiceImpl adminServiceImpl = new AdminServiceImpl();
         BasicJobService basicJobService = BasicJobsService.getInstance();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();

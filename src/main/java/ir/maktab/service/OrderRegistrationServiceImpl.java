@@ -14,7 +14,15 @@ import java.util.List;
 
 
 public class OrderRegistrationServiceImpl implements OrderRegistrationService {
-    OrderRegistrationRepository orderRegistrationRepository = OrderRegistrationRepository.getInstance();
+    private final OrderRegistrationRepository orderRegistrationRepository = OrderRegistrationRepository.getInstance();
+    private static OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
+
+    private OrderRegistrationServiceImpl() {
+    }
+
+    public static OrderRegistrationServiceImpl getInstance() {
+        return orderRegistrationService;
+    }
 
     @Override
     public void saveOrder(OrderRegistration orderRegistration) {

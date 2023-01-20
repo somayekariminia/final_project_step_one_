@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository = CustomerRepository.getInstance();
-    OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
+    OrderRegistrationServiceImpl orderRegistrationService = OrderRegistrationServiceImpl.getInstance();
     BasicJobsService basicJobsService = BasicJobsService.getInstance();
 
     @Override

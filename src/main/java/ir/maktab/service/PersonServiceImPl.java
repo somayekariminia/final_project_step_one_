@@ -1,13 +1,11 @@
 package ir.maktab.service;
 
-import ir.maktab.data.model.entity.BasicJob;
-import ir.maktab.data.model.entity.Expert;
-import ir.maktab.data.model.entity.Person;
-import ir.maktab.data.model.entity.SubJob;
+import ir.maktab.data.model.entity.*;
 import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.ValidationException;
 import ir.maktab.repository.PersonRepository;
+import ir.maktab.service.interfaces.OrderRegistrationService;
 import ir.maktab.service.interfaces.PersonService;
 import ir.maktab.util.UtilImage;
 import ir.maktab.util.ValidationInput;
@@ -22,6 +20,7 @@ import java.util.stream.Collectors;
 public class PersonServiceImPl implements PersonService {
     private final PersonRepository personRepository = new PersonRepository();
     private final BasicJobsService basicJobsService = BasicJobsService.getInstance();
+    private final OrderRegistrationService orderRegistrationService = new OrderRegistrationServiceImpl();
 
     @Override
     public void save(Person person, File file) throws IOException {
@@ -32,6 +31,10 @@ public class PersonServiceImPl implements PersonService {
             ((Expert) person).setPerformance(0);
         }
         personRepository.save(person);
+    }
+
+    public void save(OrderRegistration orderRegistration) {
+        orderRegistrationService.saveOrder(orderRegistration);
     }
 
     @Override

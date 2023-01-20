@@ -1,5 +1,7 @@
 import ir.maktab.data.model.entity.*;
 import ir.maktab.data.model.enums.SpecialtyStatus;
+import ir.maktab.exception.NotFoundException;
+import ir.maktab.exception.ValidationException;
 import ir.maktab.service.*;
 import ir.maktab.service.interfaces.BasicJobService;
 import ir.maktab.service.interfaces.PersonService;
@@ -7,13 +9,21 @@ import ir.maktab.util.UtilDate;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
+
+import static org.junit.jupiter.params.shadow.com.univocity.parsers.common.ArgumentUtils.toByteArray;
 
 public class TestApp {
     @Test
@@ -31,7 +41,7 @@ public class TestApp {
         System.out.println(basicJobService.findAllBasicJobs());
         System.out.println("////////////////////////////////////////");
         System.out.println(basicJobService.findAllSubJobsABasicJob("home"));
-        subJob.setPrice(new BigDecimal(25e4));
+        subJob.setPrice(new BigDecimal("25e4"));
         subJobService.updateSubJob(subJob);
         subJobService.deleteSubJob(subJob1);
 
@@ -39,7 +49,7 @@ public class TestApp {
 
     @Test
     public void testPersonService() throws IOException {
-        Credit credit = Credit.builder().balance(new BigDecimal(2e6)).build();
+        Credit credit = Credit.builder().balance(new BigDecimal("2e6")).build();
         Person customer = Customer.builder().
                 firstName("somaye").
                 lastName("karimi").email("somaye@qrt.com").password("Somaye12").build();
@@ -73,7 +83,7 @@ public class TestApp {
     }
 
     @Test
-    public void testAddOrder() {
+    public static void testAddOrder() {
         PersonService personService = new PersonServiceImPl();
         Person customer = personService.findByUserName("somaye@qrt.com");
         OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
@@ -81,9 +91,37 @@ public class TestApp {
         SubJob subJob = subJobService.finByName("soft");
         LocalDate localDate = LocalDate.of(2023, 01, 30);
         OrderRegistration orderRegistration = OrderRegistration.builder().address(Address.builder().city("kerman").build()).codeOrder("order1").
-                aboutWork("doing to wash soft").offerPrice(new BigDecimal(30e4)).
+                aboutWork("doing to wash soft").offerPrice(new BigDecimal("30e4")).
                 doWorkDate(UtilDate.changeLocalDateToDate(localDate)).
                 subJob(subJob).customer((Customer) customer).build();
         orderRegistrationService.saveOrder(orderRegistration);
     }
-}
+
+
+    @Test
+    public void testimage() throws Exception {
+        File file = new File("OIF.jpg");
+        final var i = (int) file.length() / 1024;
+        FileInputStream fis = new FileInputStream(file);
+        InputStream inputStream = Files.newInputStream(Paths.get("image.png"));
+        byte[] bytes = toByteArray(inputStream);
+        ImageInputStream imageInputStream = ImageIO.createImageInputStream(fis);
+
+        Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(imageInputStream);
+        if (!imageReaders.hasNext()) {
+            throw new NotFoundException("Image Readers Not Found!!!");
+        }
+        ImageReader reader = imageReaders.next();
+        System.out.println(reader.getFormatName());
+    }
+
+        public static byte[] toByteArray(InputStream inputStream) throws Exception {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, length);
+            }
+            return outputStream.toByteArray();
+        }
+    }

@@ -1,20 +1,8 @@
 package ir.maktab.util;
-
-import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.ValidationException;
-
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-
 public class ValidationInput {
-   private static InterFaceValid valid= (v,r,e)->{
-      if(v=="" || !v.matches(r))
+   private final static InterFaceValid valid= (v,r,e)->{
+      if(v.equals("")|| !v.matches(r))
           throw new ValidationException(e);
     };
     public static void validateUserName(String userName) {

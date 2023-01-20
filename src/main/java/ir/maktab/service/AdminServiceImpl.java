@@ -73,6 +73,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void updateSubJob(SubJob subJob) {
+        subJobService.updateSubJob(subJob);
+    }
+
+    @Override
     public List<Person> viewExpertsUnapproved() {
         List<Person> allExpertsIsNotConfirm = personServiceImPl.findAllExpertsIsNotConfirm();
         if (allExpertsIsNotConfirm.isEmpty()) throw new NotFoundException("There are no unapproved experts ");

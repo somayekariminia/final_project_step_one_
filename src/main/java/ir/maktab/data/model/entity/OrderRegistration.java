@@ -40,9 +40,6 @@ public class OrderRegistration {
     @OneToOne
     private SubJob subJob;
 
-    @ManyToOne
-    Customer customer;
-
     @OneToMany
     List<Offers> offersList = new ArrayList<>();
 

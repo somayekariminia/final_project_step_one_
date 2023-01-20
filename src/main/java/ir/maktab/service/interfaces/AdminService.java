@@ -25,4 +25,5 @@ public interface AdminService {
     List<BasicJob> viewAllBasicJobs();
 
     List<SubJob> viewAllSubJobs();
+    public void updateSubJob(SubJob subJob);
 }

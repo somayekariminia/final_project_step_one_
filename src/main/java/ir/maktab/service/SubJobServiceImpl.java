@@ -4,7 +4,7 @@ import ir.maktab.data.model.entity.SubJob;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.NullableException;
 import ir.maktab.exception.RepeatException;
-import ir.maktab.repository.SubJobRepository;
+import ir.maktab.data.repository.SubJobRepository;
 import ir.maktab.service.interfaces.BasicJobService;
 import ir.maktab.service.interfaces.SubJobService;
 

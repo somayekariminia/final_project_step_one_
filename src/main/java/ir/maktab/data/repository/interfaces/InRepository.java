@@ -1,4 +1,4 @@
-package ir.maktab.repository.interfaces;
+package ir.maktab.data.repository.interfaces;
 
 import java.util.List;
 import java.util.Optional;

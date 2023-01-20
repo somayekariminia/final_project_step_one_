@@ -16,14 +16,16 @@ public interface AdminService {
     void changePassword(String userName, String passwordOld, String newPassword);
 
     void saveBasicJob(BasicJob basicJob);
+
     void saveSubJob(SubJob subJob);
 
-    List<Person> viewExpertsUnapproved();
+    List<Expert> viewExpertsUnapproved();
 
-    List<Person> viewAllExpertsApproved();
+    List<Expert> viewAllExpertsApproved();
 
     List<BasicJob> viewAllBasicJobs();
 
     List<SubJob> viewAllSubJobs();
-    public void updateSubJob(SubJob subJob);
+
+    void updateSubJob(SubJob subJob);
 }

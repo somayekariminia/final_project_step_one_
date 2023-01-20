@@ -1,31 +1,31 @@
-package ir.maktab.repository;
+package ir.maktab.data.repository;
 
 import ir.maktab.Config.ConfigJpa;
-import ir.maktab.data.model.entity.SubJob;
-import ir.maktab.repository.interfaces.InRepository;
+import ir.maktab.data.model.entity.BasicJob;
+import ir.maktab.data.repository.interfaces.InRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class SubJobRepository implements InRepository<SubJob, Long> {
+public class BasicJobRepository implements InRepository<BasicJob, Long> {
 
-    private static SubJobRepository instance = new SubJobRepository();
+    private static BasicJobRepository instance = new BasicJobRepository();
 
-    public SubJobRepository() {
+    public BasicJobRepository() {
     }
 
-    public static SubJobRepository getInstance() {
+    public static BasicJobRepository getInstance() {
         return instance;
     }
 
     @Override
-    public void save(SubJob subJob) {
+    public void save(BasicJob basicJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(subJob);
+            entityManager.persist(basicJob);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (Exception e) {
@@ -34,55 +34,55 @@ public class SubJobRepository implements InRepository<SubJob, Long> {
     }
 
     @Override
-    public Optional<SubJob> getById(Long aLong) {
+    public Optional<BasicJob> getById(Long aLong) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        SubJob subJob;
+        BasicJob basicJob;
         try {
             entityManager.getTransaction().begin();
-            subJob = entityManager.find(SubJob.class, aLong);
+            basicJob = entityManager.find(BasicJob.class, aLong);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (NoResultException ex) {
-            subJob = null;
+            basicJob = null;
         }
-        return Optional.ofNullable(subJob);
+        return Optional.ofNullable(basicJob);
     }
 
     @Override
-    public List<SubJob> getAll() {
+    public List<BasicJob> getAll() {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();
-        List<SubJob> subJobList = (List<SubJob>) entityManager.createQuery("select b from  SubJob b").getResultList();
+        List<BasicJob> servicesList = entityManager.createQuery("select b from  BasicJob b").getResultList();
         entityManager.close();
-        return subJobList;
+        return servicesList;
     }
 
     @Override
-    public void update(SubJob subJob) {
+    public void update(BasicJob basicJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.merge(subJob);
+        entityManager.merge(basicJob);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public void delete(SubJob subJob) {
+    public void delete(BasicJob basicJob) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();
-        SubJob servicesDeleted = entityManager.find(SubJob.class, subJob.getId());
+        BasicJob servicesDeleted = entityManager.find(BasicJob.class, basicJob.getId());
         entityManager.remove(servicesDeleted);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public Optional<SubJob> getByName(String name) {
+    public Optional<BasicJob> getByName(String name) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
-        SubJob subJob;
+        BasicJob subJob;
         try {
             entityManager.getTransaction().begin();
-            subJob = (SubJob) entityManager.createQuery("select s from SubJob s where s.subJobName=:subJobName").
-                    setParameter("subJobName", name).getSingleResult();
+            subJob = (BasicJob) entityManager.createQuery("select s from BasicJob s where s.nameBase=:nameBase").
+                    setParameter("nameBase", name).getSingleResult();
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (NoResultException ex) {

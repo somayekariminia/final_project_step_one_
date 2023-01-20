@@ -1,8 +1,8 @@
-package ir.maktab.repository;
+package ir.maktab.data.repository;
 
 import ir.maktab.Config.ConfigJpa;
 import ir.maktab.data.model.entity.OrderRegistration;
-import ir.maktab.repository.interfaces.InRepository;
+import ir.maktab.data.repository.interfaces.InRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

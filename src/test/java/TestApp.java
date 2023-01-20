@@ -1,10 +1,9 @@
 import ir.maktab.data.model.entity.*;
 import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.exception.NotFoundException;
-import ir.maktab.exception.ValidationException;
 import ir.maktab.service.*;
 import ir.maktab.service.interfaces.BasicJobService;
-import ir.maktab.service.interfaces.PersonService;
+import ir.maktab.service.interfaces.ExpertService;
 import ir.maktab.util.UtilDate;
 import org.junit.jupiter.api.Test;
 
@@ -14,16 +13,12 @@ import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
-import java.net.URLConnection;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
-
-import static org.junit.jupiter.params.shadow.com.univocity.parsers.common.ArgumentUtils.toByteArray;
 
 public class TestApp {
     @Test
@@ -60,10 +55,10 @@ public class TestApp {
         byte[] image = bos.toByteArray();
         Expert expert = Expert.builder().firstName("ali").
                 lastName("akbari").email("ali@akbari.com").password("Ali12345").specialtyStatus(SpecialtyStatus.NewState).build();
-        PersonServiceImPl personService = new PersonServiceImPl();
-        personService.save(customer, new File(""));
-        personService.save(expert, new File("image.png"));
-        List<Person> all = personService.findAllExpertsIsNotConfirm();
+        ir.maktab.service.ExpertService expertService = new ir.maktab.service.ExpertService();
+        expertService.save(customer, new File(""));
+        expertService.save(expert, new File("image.png"));
+        List<Person> all = expertService.findAllExpertsIsNotConfirm();
         all.forEach(System.out::println);
         all.forEach(Person::getEmail);
 
@@ -71,7 +66,7 @@ public class TestApp {
 
     @Test
     public void testAddAndDelete() {
-        PersonService expertService = new PersonServiceImPl();
+        ExpertService expertService = new ir.maktab.service.ExpertService();
         AdminServiceImpl adminServiceImpl = new AdminServiceImpl();
         BasicJobService basicJobService = BasicJobsService.getInstance();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
@@ -84,8 +79,8 @@ public class TestApp {
 
     @Test
     public static void testAddOrder() {
-        PersonService personService = new PersonServiceImPl();
-        Person customer = personService.findByUserName("somaye@qrt.com");
+        ExpertService expertService = new ir.maktab.service.ExpertService();
+        Person customer = expertService.findByUserName("somaye@qrt.com");
         OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
         SubJob subJob = subJobService.finByName("soft");

@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Person {
     private String firstName;
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String email;
 
     private String password;

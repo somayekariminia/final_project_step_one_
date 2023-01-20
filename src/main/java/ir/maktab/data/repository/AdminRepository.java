@@ -1,4 +1,4 @@
-package ir.maktab.repository;
+package ir.maktab.data.repository;
 
 import ir.maktab.Config.ConfigJpa;
 import ir.maktab.data.model.entity.Admin;

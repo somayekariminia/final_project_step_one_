@@ -4,7 +4,7 @@ import ir.maktab.data.model.entity.OrderRegistration;
 import ir.maktab.data.model.enums.OrderStatus;
 import ir.maktab.exception.RepeatException;
 import ir.maktab.exception.ValidationException;
-import ir.maktab.repository.OrderRegistrationRepository;
+import ir.maktab.data.repository.OrderRegistrationRepository;
 import ir.maktab.service.interfaces.OrderRegistrationService;
 import ir.maktab.util.UtilDate;
 

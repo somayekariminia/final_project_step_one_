@@ -1,20 +1,23 @@
 package ir.maktab.service;
 
-import ir.maktab.data.model.entity.*;
+import ir.maktab.data.model.entity.Admin;
+import ir.maktab.data.model.entity.BasicJob;
+import ir.maktab.data.model.entity.Expert;
+import ir.maktab.data.model.entity.SubJob;
 import ir.maktab.data.model.enums.SpecialtyStatus;
+import ir.maktab.data.repository.AdminRepository;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.RepeatException;
 import ir.maktab.exception.ValidationException;
-import ir.maktab.repository.AdminRepository;
 import ir.maktab.service.interfaces.AdminService;
-import ir.maktab.service.interfaces.PersonService;
+import ir.maktab.service.interfaces.ExpertService;
 import ir.maktab.service.interfaces.SubJobService;
 
 import java.util.List;
 import java.util.Objects;
 
 public class AdminServiceImpl implements AdminService {
-    private final PersonService personServiceImPl = new PersonServiceImPl();
+    private final ExpertService expertServiceImPl = new ir.maktab.service.ExpertService();
     private final AdminRepository adminRepository = new AdminRepository();
     private final BasicJobsService basicJobsService = BasicJobsService.getInstance();
     private final SubJobService subJobService = SubJobServiceImpl.getInstance();
@@ -31,18 +34,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addExpertToSubJob(Expert expert, SubJob subJob) {
-        Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
+        Expert expertDb = expertServiceImPl.findByUserName(expert.getEmail());
         SubJob subJobDb = subJobService.finByName(subJob.getSubJobName());
-        if (Objects.nonNull(subJobDb) && Objects.nonNull(expertDb)) {
-            if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState))
-                throw new ValidationException("this Expert isnot confirm ");
-            if (((Expert) expertDb).getServicesList().stream().anyMatch(subJob1 -> subJob1.getSubJobName().equals(subJobDb.getSubJobName())))
-                throw new RepeatException("this subject already exist");
-            ((Expert) expertDb).getServicesList().add(subJobDb);
-            personServiceImPl.update(expertDb);
-        } else {
-            throw new NotFoundException("Expert or SubJob isNot exist ");
-        }
+        if (expertDb.getSpecialtyStatus().equals(SpecialtyStatus.NewState))
+            throw new ValidationException("this Expert isnot confirm ");
+        if (expertDb.getServicesList().stream().anyMatch(subJob1 -> subJob1.getSubJobName().equals(subJobDb.getSubJobName())))
+            throw new RepeatException("this subject already exist");
+        expertDb.getServicesList().add(subJobDb);
+        expertServiceImPl.update(expertDb);
     }
 
     @Override
@@ -54,15 +53,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteExpertOfSubJob(Expert expert, SubJob subJob) {
-        Person expertDb = personServiceImPl.findByUserName(expert.getEmail());
+        Expert expertDb = expertServiceImPl.findByUserName(expert.getEmail());
         SubJob subJobDb = subJobService.finByName(subJob.getSubJobName());
-        if ((Objects.nonNull(subJobDb) && Objects.nonNull(expertDb))) {
-            if (((Expert) expertDb).getServicesList().isEmpty())
-                throw new NotFoundException("subJob not exist");
-            ((Expert) expertDb).getServicesList().remove(subJob);
-            personServiceImPl.update(expertDb);
-        }
-        throw new NotFoundException("Expert or SubJob isNot exist ");
+        if (expertDb.getServicesList().isEmpty()) throw new NotFoundException("subJob not exist");
+        expertDb.getServicesList().remove(subJobDb);
+        expertServiceImPl.update(expertDb);
     }
 
     @Override
@@ -78,8 +73,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Person> viewExpertsUnapproved() {
-        List<Person> allExpertsIsNotConfirm = personServiceImPl.findAllExpertsIsNotConfirm();
+    public List<Expert> viewExpertsUnapproved() {
+        List<Expert> allExpertsIsNotConfirm = expertServiceImPl.findAllExpertsIsNotConfirm();
         if (allExpertsIsNotConfirm.isEmpty()) throw new NotFoundException("There are no unapproved experts ");
         return allExpertsIsNotConfirm;
     }
@@ -90,8 +85,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Person> viewAllExpertsApproved() {
-        return personServiceImPl.findAllExpertsApproved();
+    public List<Expert> viewAllExpertsApproved() {
+        return expertServiceImPl.findAllExpertsApproved();
     }
 
     @Override
@@ -104,21 +99,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<SubJob> viewAllSubJobs() {
         List<SubJob> subJobList = subJobService.findAll();
-        if (subJobList.isEmpty())
-            throw new NotFoundException("");
+        if (subJobList.isEmpty()) throw new NotFoundException("");
         return subJobList;
     }
 
     @Override
     public void isConfirmExpertByAdmin(String userName) {
-        Person expertDb = personServiceImPl.findByUserName(userName);
-        if (Objects.nonNull(expertDb)) {
-            if (((Expert) expertDb).getSpecialtyStatus().equals(SpecialtyStatus.NewState)) {
-                ((Expert) expertDb).setSpecialtyStatus(SpecialtyStatus.Confirmed);
-            }
-            personServiceImPl.update(expertDb);
+        Expert expertDb = expertServiceImPl.findByUserName(userName);
+        if (expertDb.getSpecialtyStatus().equals(SpecialtyStatus.NewState)) {
+            expertDb.setSpecialtyStatus(SpecialtyStatus.Confirmed);
         }
-        throw new NotFoundException("expert is Not exist");
+        expertServiceImPl.update(expertDb);
     }
 }
 

@@ -1,10 +1,10 @@
 package ir.maktab.service;
 
 import ir.maktab.data.model.entity.SubJob;
+import ir.maktab.data.repository.SubJobRepository;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.exception.NullableException;
 import ir.maktab.exception.RepeatException;
-import ir.maktab.data.repository.SubJobRepository;
 import ir.maktab.service.interfaces.BasicJobService;
 import ir.maktab.service.interfaces.SubJobService;
 
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class SubJobServiceImpl implements SubJobService {
+    private static final SubJobServiceImpl instance = new SubJobServiceImpl();
     private final SubJobRepository subJobRepository = SubJobRepository.getInstance();
     private final BasicJobService basicJobService = BasicJobsService.getInstance();
-    private static final SubJobServiceImpl instance = new SubJobServiceImpl();
 
     private SubJobServiceImpl() {
     }

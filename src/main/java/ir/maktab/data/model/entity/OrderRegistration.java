@@ -18,29 +18,23 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class OrderRegistration {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private BigDecimal offerPrice;
-    private String aboutWork;
-
-    @Column(unique = true)
-    private String codeOrder;
-
-    @Temporal(value = TemporalType.DATE)
-    private Date doWorkDate;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     Address address;
-
-    @Enumerated
-    private OrderStatus orderStatus;
-
-    @OneToOne
-    private SubJob subJob;
 
     @OneToMany
     List<Offers> offersList = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private BigDecimal offerPrice;
+    private String aboutWork;
+    @Column(unique = true)
+    private String codeOrder;
+    @Temporal(value = TemporalType.DATE)
+    private Date doWorkDate;
+    @Enumerated
+    private OrderStatus orderStatus;
+    @OneToOne
+    private SubJob subJob;
 
 }

@@ -20,13 +20,10 @@ import java.util.List;
 public class Expert extends Person {
     @ManyToMany(fetch = FetchType.EAGER)
     List<SubJob> servicesList = new ArrayList<>();
-
-    private double performance;
-
     @ToString.Exclude
     @OneToMany
     List<Review> listComment = new ArrayList<>();
-
+    private double performance;
     @Enumerated(value = EnumType.STRING)
     private SpecialtyStatus specialtyStatus;
 

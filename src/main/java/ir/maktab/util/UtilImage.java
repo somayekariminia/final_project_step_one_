@@ -16,7 +16,7 @@ public class UtilImage {
     private static final int SIZEIMAGE = 300;
 
     private static void checkFormatImage(File file) {
-        ImageInputStream imageInputStream ;
+        ImageInputStream imageInputStream;
         try {
             imageInputStream = ImageIO.createImageInputStream(file);
             Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(imageInputStream);

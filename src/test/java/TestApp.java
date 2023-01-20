@@ -3,6 +3,7 @@ import ir.maktab.data.model.enums.SpecialtyStatus;
 import ir.maktab.exception.NotFoundException;
 import ir.maktab.service.*;
 import ir.maktab.service.interfaces.BasicJobService;
+import ir.maktab.service.interfaces.CustomerService;
 import ir.maktab.service.interfaces.ExpertService;
 import ir.maktab.util.UtilDate;
 import org.junit.jupiter.api.Test;
@@ -14,13 +15,38 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
 public class TestApp {
+    @Test
+    public  void testAddOrder() {
+        CustomerService customerService = new CustomerServiceImpl();
+        ExpertService expertService = new ir.maktab.service.ExpertService();
+        Customer customer = customerService.findByUserName("somaye@qrt.com");
+        OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
+        SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
+        SubJob subJob = subJobService.finByName("soft");
+        LocalDate localDate = LocalDate.of(2023, 01, 30);
+        OrderRegistration orderRegistration = OrderRegistration.builder().address(Address.builder().city("kerman").build()).codeOrder("order1").
+                aboutWork("doing to wash soft").offerPrice(new BigDecimal("30e4")).
+                doWorkDate(UtilDate.changeLocalDateToDate(localDate)).
+                subJob(subJob).build();
+        orderRegistrationService.saveOrder(orderRegistration);
+    }
+
+    public static byte[] toByteArray(InputStream inputStream) throws Exception {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, length);
+        }
+        return outputStream.toByteArray();
+    }
+
     @Test
     public void testSaveServices() {
 
@@ -44,8 +70,9 @@ public class TestApp {
 
     @Test
     public void testPersonService() throws IOException {
+        CustomerService customerService = new CustomerServiceImpl();
         Credit credit = Credit.builder().balance(new BigDecimal("2e6")).build();
-        Person customer = Customer.builder().
+        Customer customer = Customer.builder().
                 firstName("somaye").
                 lastName("karimi").email("somaye@qrt.com").password("Somaye12").build();
         BufferedImage originalImage = ImageIO.read(new File("image.png"));
@@ -56,9 +83,9 @@ public class TestApp {
         Expert expert = Expert.builder().firstName("ali").
                 lastName("akbari").email("ali@akbari.com").password("Ali12345").specialtyStatus(SpecialtyStatus.NewState).build();
         ir.maktab.service.ExpertService expertService = new ir.maktab.service.ExpertService();
-        expertService.save(customer, new File(""));
-        expertService.save(expert, new File("image.png"));
-        List<Person> all = expertService.findAllExpertsIsNotConfirm();
+        /* customerService.save(customer);*/
+        expertService.save(expert, new File("OIF.jpg"));
+        List<Expert> all = expertService.findAllExpertsIsNotConfirm();
         all.forEach(System.out::println);
         all.forEach(Person::getEmail);
 
@@ -71,27 +98,11 @@ public class TestApp {
         BasicJobService basicJobService = BasicJobsService.getInstance();
         SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
         adminServiceImpl.isConfirmExpertByAdmin("ali@akbari.com");
-        Person expert = expertService.findByUserName("ali@akbari.com");
+        Expert expert = expertService.findByUserName("ali@akbari.com");
         SubJob subJob = subJobService.finByName("soft");
-        adminServiceImpl.addExpertToSubJob((Expert) expert, subJob);
-        adminServiceImpl.deleteExpertOfSubJob((Expert) expert, subJob);
+        adminServiceImpl.addExpertToSubJob(expert, subJob);
+        /*adminServiceImpl.deleteExpertOfSubJob((Expert) expert, subJob);*/
     }
-
-    @Test
-    public static void testAddOrder() {
-        ExpertService expertService = new ir.maktab.service.ExpertService();
-        Person customer = expertService.findByUserName("somaye@qrt.com");
-        OrderRegistrationServiceImpl orderRegistrationService = new OrderRegistrationServiceImpl();
-        SubJobServiceImpl subJobService = SubJobServiceImpl.getInstance();
-        SubJob subJob = subJobService.finByName("soft");
-        LocalDate localDate = LocalDate.of(2023, 01, 30);
-        OrderRegistration orderRegistration = OrderRegistration.builder().address(Address.builder().city("kerman").build()).codeOrder("order1").
-                aboutWork("doing to wash soft").offerPrice(new BigDecimal("30e4")).
-                doWorkDate(UtilDate.changeLocalDateToDate(localDate)).
-                subJob(subJob).customer((Customer) customer).build();
-        orderRegistrationService.saveOrder(orderRegistration);
-    }
-
 
     @Test
     public void testimage() throws Exception {
@@ -109,14 +120,4 @@ public class TestApp {
         ImageReader reader = imageReaders.next();
         System.out.println(reader.getFormatName());
     }
-
-        public static byte[] toByteArray(InputStream inputStream) throws Exception {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, length);
-            }
-            return outputStream.toByteArray();
-        }
-    }
+}

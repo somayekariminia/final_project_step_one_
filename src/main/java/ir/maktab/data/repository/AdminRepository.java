@@ -34,6 +34,7 @@ public class AdminRepository {
         }
         return Optional.ofNullable(admin);
     }
+
     public void update(Admin admin) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         entityManager.getTransaction().begin();

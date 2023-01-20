@@ -1,6 +1,9 @@
 package ir.maktab.service.interfaces;
 
-import ir.maktab.data.model.entity.*;
+import ir.maktab.data.model.entity.Admin;
+import ir.maktab.data.model.entity.BasicJob;
+import ir.maktab.data.model.entity.Expert;
+import ir.maktab.data.model.entity.SubJob;
 
 import java.util.List;
 

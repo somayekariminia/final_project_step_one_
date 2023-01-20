@@ -5,13 +5,12 @@ import ir.maktab.data.model.entity.Expert;
 import ir.maktab.data.model.entity.Person;
 import ir.maktab.data.repository.interfaces.InRepository;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class ExpertRepository implements InRepository<Expert,Long> {
+public class ExpertRepository implements InRepository<Expert, Long> {
     private static ExpertRepository instance = new ExpertRepository();
 
     public ExpertRepository() {
@@ -23,7 +22,7 @@ public class ExpertRepository implements InRepository<Expert,Long> {
 
     @Override
     public void save(Expert person) {
-       EntityManager entityManager=ConfigJpa.getInstance().createEntityManager();
+        EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(person);

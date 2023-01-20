@@ -2,18 +2,14 @@ package ir.maktab.data.repository;
 
 import ir.maktab.Config.ConfigJpa;
 import ir.maktab.data.model.entity.Customer;
-import ir.maktab.data.model.entity.Person;
 import ir.maktab.data.repository.interfaces.InRepository;
-import ir.maktab.service.BasicJobsService;
-import ir.maktab.service.SubJobServiceImpl;
-import ir.maktab.service.interfaces.BasicJobService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerRepository implements InRepository<Customer,Long> {
+public class CustomerRepository implements InRepository<Customer, Long> {
     private static CustomerRepository instance = new CustomerRepository();
 
     public CustomerRepository() {
@@ -22,9 +18,10 @@ public class CustomerRepository implements InRepository<Customer,Long> {
     public static CustomerRepository getInstance() {
         return instance;
     }
+
     @Override
     public void save(Customer customer) {
-        EntityManager entityManager= ConfigJpa.getInstance().createEntityManager();
+        EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(customer);
@@ -77,6 +74,7 @@ public class CustomerRepository implements InRepository<Customer,Long> {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
     public Optional<Customer> findByUserName(String userName) {
         EntityManager entityManager = ConfigJpa.getInstance().createEntityManager();
         Customer expert;

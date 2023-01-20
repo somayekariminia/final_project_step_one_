@@ -14,15 +14,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @SuperBuilder
 public class SubJob {
+    @ManyToOne
+    BasicJob basicJob;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-   @Column(nullable = false)
+    @Column(nullable = false)
     private String subJobName;
     private BigDecimal price;
     private String description;
-
-    @ManyToOne
-    BasicJob basicJob;
 }
